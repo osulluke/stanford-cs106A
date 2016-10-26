@@ -19,14 +19,25 @@ public class CollectNewspaperKarel extends SuperKarel {
 	}
 
 	private void moveToNewsPaper() {
-		
+		move();
+		move();
+		turnRight();
+		move();
+		turnLeft();
+		move();
 	}
 	
 	private void pickUpNewsPaper() {
-		
+		pickBeeper();
 	}
 	
 	private void moveToBeginning() {
-		
+		turnAround();
+		move();
+		move();
+		move();
+		turnRight();
+		move();
+		turnRight();
 	}
 }
