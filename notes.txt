@@ -1,0 +1,2 @@
+Ok, all the environment is now working with Karen set up on Linux, and JVM v 6 up and working!!
+
