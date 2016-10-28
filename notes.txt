@@ -1,2 +1,21 @@
 Ok, all the environment is now working with Karen set up on Linux, and JVM v 6 up and working!!
 
+Lesson 3:
+
+Now, he tells me they're not going to use Karel throughout the whole class!!! Well, whatever, it was still a worth-while exercise.
+
+Step-wise refinement, decomposoition, top-down vs bottom-up design.
+
+	- Takes ~100 hours of programming to start thinking in terms of top-down design principles as opposed to bottom-up ones. Generally, top-down design is preferable, as it builds naturally from abstractions that we (as humans) think in towards instructions that the computer can execute.
+
+	- What an excellent class - my solution to the exercise to fix the city was done using a top-down design process.
+
+	- Good style, in terms of the practice of 'software engineering' is more important than just getting the program working.
+
+How does decomposition work? What are the proper ways to decompose a program?
+
+	- Each 'method' should solve one problem for you.
+	- Most methods are ~ 1-15 lines long; a one-line method is likely just re-naming something - helps to think of the method in the correct terms.
+	- Use good names.
+	- Use good comments, and at least one comment per method.
+	- One really good type of comment that was covered without real detail in the lecture is putting pre and post conditions in the comments that are associated with methods. For instance, a 'before' and 'after' condition that relates to when the method was called/executed.
