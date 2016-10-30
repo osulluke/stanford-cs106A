@@ -21,7 +21,7 @@ public class Problem3 extends SuperKarel {
 	private void layDownBeepers() {
 		while (!reachedEndOfWorld()) {
 
-			if (frontIsClear()) {
+			if ( frontIsClear() && facingEast() ) {
 				move();
 				//setDirection(1);
 				if (frontIsClear()){
@@ -38,17 +38,18 @@ public class Problem3 extends SuperKarel {
 				}
 			}
 
-			if(frontIsBlocked()) {
-				setDirection(0);
+			if( frontIsClear() && facingWest() ) {
+				move();
 				if (frontIsClear()) {
 					move();
-					setDirection(1);
-					setDirection(getDirection() + 2 % 4);
+					placeBrick();
 				}
 				else{
-					turnLeft();
+					turnRight();
 					if (frontIsClear()) {
 						move();
+						placeBrick();
+						turnRight();
 					}
 				}
 			}
@@ -59,6 +60,18 @@ public class Problem3 extends SuperKarel {
 					move();
 				}
 				turnRight();
+			}
+			
+			if (frontIsBlocked() && facingEast()) {
+				setDirection(0);
+				if(!frontIsBlocked()) {
+					move();
+				}
+				turnLeft();
+			}
+			
+			if (frontIsBlocked() && facingNorth() ) {
+				break;
 			}
 		}
 		return;
