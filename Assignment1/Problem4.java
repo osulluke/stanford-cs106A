@@ -2,7 +2,13 @@ import stanford.karel.*;
 
 public class Problem4 extends SuperKarel {
 	public void run() {
+		initializeKarel();
 		placeBrickInMiddle();
+		return;
+	}
+	
+	public void initializeKarel() {
+		setBeepersInBag(10000);
 		return;
 	}
 	
@@ -14,16 +20,39 @@ public class Problem4 extends SuperKarel {
 		 * brick remaining.
 		 */
 		layDownFirstRow();
-		pickUpEnds();
+		pickUpEdges();
+		pushEnds();
 		
 		return;
 	}
 	
 	public void layDownFirstRow() {
+		putBeeper();
+		while ( frontIsClear() ) {
+			move();
+			putBeeper();
+		}
 		return;
 	}
 	
-	public void pickUpEnds() {
+	public void pickUpEdges() {
+		while ( frontIsClear() ) {
+			move();
+		}
+		pickBeeper();
+		turnAround();
+		
+		while ( frontIsClear() ) {
+			move();
+		}
+		pickBeeper();
+		turnAround();
+		
+		return;
+	}
+	
+	public void pushEnds() {
+		
 		return;
 	}
 	
