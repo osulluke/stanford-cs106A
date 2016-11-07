@@ -47,13 +47,33 @@ public class Problem4 extends SuperKarel {
 		}
 		pickBeeper();
 		turnAround();
+		move();
 		
 		return;
 	}
 	
 	public void pushEnds() {
 		
+		findLastBeeper();
+
+		move();
+		pushEnds();
+		
 		return;
+	}
+	
+	public void findLastBeeper() {
+		while ( beepersPresent() ) {
+			move();
+		}
+		turnAround();
+		move();
+		if ( beepersPresent() ) {
+			pickBeeper();
+		}
+		else {
+			putBeeper();
+		}
 	}
 	
 }
