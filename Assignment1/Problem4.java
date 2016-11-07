@@ -54,26 +54,50 @@ public class Problem4 extends SuperKarel {
 	
 	public void pushEnds() {
 		
-		findLastBeeper();
-
-		move();
-		pushEnds();
-		
+		while ( beepersPresent() ) {
+			findEdgeBeeper();
+			if ( checkLastBeeper() ) {
+				break;
+			}
+			else {
+				pickBeeper();
+				/*
+				 * Call findEdgeBeeper() to begin scan again.
+				 */
+				findEdgeBeeper();
+			}
+		}
 		return;
 	}
 	
-	public void findLastBeeper() {
+	public void findEdgeBeeper() {
+		/*
+		 * Move forward until there are no more beepers.
+		 */
 		while ( beepersPresent() ) {
 			move();
 		}
+		// Go back to previous beeper
 		turnAround();
-		move();
-		if ( beepersPresent() ) {
-			pickBeeper();
-		}
-		else {
-			putBeeper();
-		}
+		move(); //Karel should now be on the previous (and an edge...) beeper.
 	}
 	
+	public boolean checkLastBeeper() {
+		/*
+		 * This function is called when Karel is on an edge beeper
+		 * that needs to be tested if it's the last one in the world.
+		 * If it is, the function returns true, and if not, returns 
+		 * false.
+		 */
+		
+		move();
+		if ( beepersPresent() ) {
+			turnAround();
+			move();
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }
