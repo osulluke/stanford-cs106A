@@ -4,7 +4,7 @@ Lesson 3:
 
 Now, he tells me they're not going to use Karel throughout the whole class!!! Well, whatever, it was still a worth-while exercise.
 
-Step-wise refinement, decomposoition, top-down vs bottom-up design.
+Step-wise refinement, decomposition, top-down vs bottom-up design.
 
 	- Takes ~100 hours of programming to start thinking in terms of top-down design principles as opposed to bottom-up ones. Generally, top-down design is preferable, as it builds naturally from abstractions that we (as humans) think in towards instructions that the computer can execute.
 
@@ -19,3 +19,8 @@ How does decomposition work? What are the proper ways to decompose a program?
 	- Use good names.
 	- Use good comments, and at least one comment per method.
 	- One really good type of comment that was covered without real detail in the lecture is putting pre and post conditions in the comments that are associated with methods. For instance, a 'before' and 'after' condition that relates to when the method was called/executed.
+
+Lesson 5: 
+
+Not too much new stuff; covered variables and declaring classes, making objects, passing messages to objects, etc.
+The one really new piece of information was about the '%' operator in java, which he called the remainder operator, which makes sense, but then made a very specific point about how it is different than the operation in mathematics known as modulo operator, which I find confusing, because I thought that's precisely what it was...maybe this will be clarified in the future.
