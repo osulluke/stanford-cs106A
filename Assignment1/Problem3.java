@@ -23,7 +23,6 @@ public class Problem3 extends SuperKarel {
 
 			if ( frontIsClear() && facingEast() ) {
 				move();
-				//setDirection(1);
 				if (frontIsClear()){
 					move();
 					placeBrick();
@@ -45,29 +44,39 @@ public class Problem3 extends SuperKarel {
 					placeBrick();
 				}
 				else{
-					turnRight();
+					setDirection(0);
 					if (frontIsClear()) {
 						move();
 						placeBrick();
-						turnRight();
+						setDirection(1);
 					}
 				}
 			}
 
-			if (frontIsBlocked() && facingWest()) {
+			if ( frontIsBlocked() && facingWest() ) {
 				setDirection(0);
 				if(!frontIsBlocked()) {
 					move();
+					setDirection(1);
+					move();
+					placeBrick();
 				}
-				turnRight();
+				else {
+					break;
+				}
 			}
 			
-			if (frontIsBlocked() && facingEast()) {
+			if ( frontIsBlocked() && facingEast() ) {
 				setDirection(0);
 				if(!frontIsBlocked()) {
 					move();
+					setDirection(3);
+					move();
+					placeBrick();
 				}
-				turnLeft();
+				else {
+					break;
+				}
 			}
 			
 			if (frontIsBlocked() && facingNorth() ) {
