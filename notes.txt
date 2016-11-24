@@ -39,7 +39,7 @@ Lesson 7:
 	why does a programming language give you both forms? 'for' is really there to
 	enable you to iterate something a known number of times, while 'while' is
 	there to allow you to iterate an 'unknown' number of times.
-	- Important to think of methods/functions as 'messages' that are aalled by
+	- Important to think of methods/functions as 'messages' that are called by
 	objects; for instance, player.move(3) should be thought of as the 'player'
 	object being passed a 'move(3)' message: basic structure/syntax is
 	'receiver.method(argument)'. Alternatively, you are sending a message to an
