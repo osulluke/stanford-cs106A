@@ -24,16 +24,14 @@ public class Pyramid extends GraphicsProgram {
 
 /** Number of bricks in the base of the pyramid */
 	private static final int BRICKS_IN_BASE = 14;
-/*
-* This is to make it easier to set/pull data from the size of the window.
-*/
-	private static final int cWidth = BRICKS_IN_BASE * BRICK_WIDTH + 4 * BRICK_WIDTH;
-	private static final int cHeight = BRICKS_IN_BASE * BRICK_HEIGHT + 4 * BRICK_HEIGHT;
+
+	GCanvas canv = new GCanvas();
+	int cWidth = (int) 1.2*BRICKS_IN_BASE*BRICK_WIDTH;
+	int cHeight = (int) 1.2*BRICKS_IN_BASE*BRICK_HEIGHT;
 
 	public void run() {
-		GCanvas canv = new GCanvas();
-		canv.setSize(cWidth, cHeight);
 		buildPyramid();
+		
 		return;
 	}
 
@@ -44,8 +42,8 @@ public class Pyramid extends GraphicsProgram {
 	}
 
 	private void layBricks(int i) {
-		int xPos = (cWidth + (i * BRICK_WIDTH )) / 2;
-		int yPos = (cHeight + (BRICKS_IN_BASE - i*BRICK_HEIGHT));
+		int xPos = (cWidth - ((BRICKS_IN_BASE - i) * BRICK_WIDTH))/2 ;
+		int yPos = (cHeight - (i * BRICK_HEIGHT));
 
 		for (int j = 0; j < BRICKS_IN_BASE - i; j++) {
 			GRect rec = new GRect(xPos + j*BRICK_WIDTH, yPos, BRICK_WIDTH, BRICK_HEIGHT);
