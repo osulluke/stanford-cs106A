@@ -26,11 +26,11 @@ public class Target extends GraphicsProgram {
 		int cSize = (int) (.30 * oSize);
 
 		GOval outer = new GOval(mid, mid, oSize, oSize);
-		GOval middle = new GOval(mid + oSize, mid + oSize, mSize, mSize);
+		GOval middle = new GOval(mid, mid, mSize, mSize);
 		GOval center = new GOval(mid, mid, cSize, cSize);
 
 		outer.setColor(Color.RED);
-		middle.setColor(Color.WHITE);
+		middle.setColor(Color.BLACK);
 		center.setColor(Color.RED);
 
 		outer.setFillColor(Color.RED);
