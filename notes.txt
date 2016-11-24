@@ -20,7 +20,7 @@ How does decomposition work? What are the proper ways to decompose a program?
 	- Use good comments, and at least one comment per method.
 	- One really good type of comment that was covered without real detail in the lecture is putting pre and post conditions in the comments that are associated with methods. For instance, a 'before' and 'after' condition that relates to when the method was called/executed.
 
-Lesson 5: 
+Lesson 5:
 
 Not too much new stuff; covered variables and declaring classes, making objects, passing messages to objects, etc.
 The one really new piece of information was about the '%' operator in java, which he called the remainder operator, which makes sense, but then made a very specific point about how it is different than the operation in mathematics known as modulo operator, which I find confusing, because I thought that's precisely what it was...maybe this will be clarified in the future.
@@ -32,3 +32,15 @@ Lesson 6:
 	- constants identified by "private static final type" (i.e. private static final double)
 	- for loops in java and how they operate
 	- while loops; remember these were used in Karel
+
+Lesson 7:
+
+	- 'for' vs. 'while' loops - they are (can be) exactly equivalent, so
+	why does a programming language give you both forms? 'for' is really there to
+	enable you to iterate something a known number of times, while 'while' is
+	there to allow you to iterate an 'unknown' number of times.
+	- Important to think of methods/functions as 'messages' that are aalled by
+	objects; for instance, player.move(3) should be thought of as the 'player'
+	object being passed a 'move(3)' message: basic structure/syntax is
+	'receiver.method(argument)'. Alternatively, you are sending a message to an
+	object.
