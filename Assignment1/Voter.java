@@ -1,20 +1,27 @@
 import stanford.karel.*;
 
 public class Voter extends SuperKarel {
-	
+
 	public void run() {
-		move();
+		start();
 		fixBallot();
 	}
-	
+
 	private void fixBallot() {
 		while( !atBallotEdge() ) {
 			checkIntent();
 		}
 		return;
 	}
-	
-	
+	/*
+	 * While not strictly necessary, this function makes it a little bit cleaner
+	 * to avoid a 'weird' call of the 'move()' function before the main loop starts
+	 * in the 'fixBallot' program. Implemented purely for program readability.
+	 */
+	private void start() {
+		move();
+	}
+
 	/*
 	 * Doing it like this will require that Karel never turns
 	 * towards the east while inside one of the ballot rows.
@@ -27,7 +34,7 @@ public class Voter extends SuperKarel {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * Method checks to see if the front is clear each time in order
 	 * to prevent running into a wall.
@@ -41,7 +48,7 @@ public class Voter extends SuperKarel {
 		}
 		return;
 	}
-	
+
 	/*
 	 * This will go through a ballot square and if there happens
 	 * to be a chad(s) there, it will clean it. It also explicitly
@@ -63,12 +70,12 @@ public class Voter extends SuperKarel {
 		setDirection(1);
 		return;
 	}
-	
+
 	/*
 	 * Function will determine whether or not someone had the intent
-	 * to vote for a certain block by checking if the middle block 
-	 * is removed. If the block is empty, it will clean the rest of 
-	 * the square and go to the next square. If they didn't want to 
+	 * to vote for a certain block by checking if the middle block
+	 * is removed. If the block is empty, it will clean the rest of
+	 * the square and go to the next square. If they didn't want to
 	 * vote for that block, it will simply just go to the next square.
 	 */
 	private void checkIntent() {
@@ -80,10 +87,10 @@ public class Voter extends SuperKarel {
 			goToNext();
 		}
 	}
-	
+
 	/*
 	 * Function checks to see if there are beepers present,
-	 * and 'while' they are, Karel will pick them up until they 
+	 * and 'while' they are, Karel will pick them up until they
 	 * no longer remain.
 	 */
 	private void cleanIfDirty() {
