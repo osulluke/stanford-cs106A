@@ -13,28 +13,41 @@ import java.awt.*;
 public class Target extends GraphicsProgram {
 	public void run() {
 		GCanvas canv = new GCanvas();
+		/*
 		int height = canv.getHeight();
 		int width  = canv.getWidth();
-
-		int oSize = 72;
-		int mSize = (int) .65 * oSize;
-		int cSize = (int) .30 * oSize;
-
-		GOval outer = new GOval(oSize, oSize, width / 2, height / 2);
-		GOval middle = new GOval(mSize, mSize, width / 2, height / 2);
-		GOval center = new GOval(cSize, cSize, width / 2, height / 2);
+		*/
 		
-		outer.setColor(Color.red);
-		middle.setColor(Color.white);
-		center.setColor(Color.red);
+		int height = 400;
+		int width = 400;
+		int mid = (height + width) / 4;
+		int oSize = 72;
+		int mSize = (int) (.65 * oSize);
+		int cSize = (int) (.30 * oSize);
+
+		GOval outer = new GOval(mid, mid, oSize, oSize);
+		GOval middle = new GOval(mid + oSize, mid + oSize, mSize, mSize);
+		GOval center = new GOval(mid, mid, cSize, cSize);
+
+		outer.setColor(Color.RED);
+		middle.setColor(Color.WHITE);
+		center.setColor(Color.RED);
+
+		outer.setFillColor(Color.RED);
+		middle.setFillColor(Color.WHITE);
+		center.setFillColor(Color.RED);
+		
+		outer.setFilled(true);
+		middle.setFilled(true);
+		center.setFilled(true);
 /*
 		add(outer.setColor(Color.RED));
 		add(middle.setColor(Color.RED));
 		add(center.setColor(Color.RED));
 */
-		canv.add(outer);
-		canv.add(middle);
-		canv.add(center);
+		add(outer);
+		add(middle);
+		add(center);
 		return;
 	}
 }
