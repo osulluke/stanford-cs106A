@@ -44,3 +44,13 @@ Lesson 7:
 	object being passed a 'move(3)' message: basic structure/syntax is
 	'receiver.method(argument)'. Alternatively, you are sending a message to an
 	object.
+
+	/////////////////////////////////////////////////////////////////////////////
+		At this point, it seems like I'm fully done with the Karel program. I'll
+		continue to use Eclipse, because it's a full development environment, but I
+		also want to begin to incorporate some of the tools available to me in a
+		program like 'atom,' and get used to one environment for programming/coding
+		that will serve me across the board.
+	/////////////////////////////////////////////////////////////////////////////
+
+Lesson 8:
