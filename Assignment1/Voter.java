@@ -3,7 +3,7 @@ import stanford.karel.*;
 public class Voter extends SuperKarel {
 
 	public void run() {
-		start();
+		begin();
 		fixBallot();
 	}
 
@@ -18,8 +18,9 @@ public class Voter extends SuperKarel {
 	 * to avoid a 'weird' call of the 'move()' function before the main loop starts
 	 * in the 'fixBallot' program. Implemented purely for program readability.
 	 */
-	private void start() {
+	private void begin() {
 		move();
+		return;
 	}
 
 	/*
