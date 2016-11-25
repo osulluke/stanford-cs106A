@@ -54,3 +54,35 @@ Lesson 7:
 	/////////////////////////////////////////////////////////////////////////////
 
 Lesson 8:
+
+	- Information hiding is one of the key principles of software engineering and
+	should be of primary concern to software developers. Lots of different ways
+	exist to make toast: heating coils, elves, etc. The user does not, and should
+	not care about the 'how'.
+	- Any time a method is called, you are given a new stack-frame with a copy of
+	the value of the variable that was passed to the method (pass by value). This
+	is reminicent of the stacks that I looked at in the assembly language class I
+	took a year ago.
+	- Local variable's lifetimes are constrained to the length of time the method
+	exists (is called/operating). Once it is done, they disappear. Instance
+	variables, on the other hand, live for the lifetime of the object, and are
+	visible to all the methods within the calling class. Used to store values
+	between calls of methods...this is what is known as 'state', or the state of
+	the object.
+		- Class example of this was using multiple 'water bottles' with soda inside
+		and calling multiple methods screwCapOn(), unscrewCap(), etc. In between all
+		of the different calls of these functions, the amount of soda in the
+		respective bottles did not change - which is what you want, and is the point
+		of an instance variable.
+		- Question from class was asked regarding what the difference between global
+		and instance variables was. Mehran said there is a difference, but they are
+		bad style, so they're not covered in the class.
+	- Java convention asserts that constants be declared up at the top of a
+	class, then all the methods, and then (at the bottom) all of the instance
+	variables - which actually do change.
+	- Random number generators. Use seeds to test program for bugs...this way
+	when you're testing a program, it will have reproducible results.
+
+Lesson 9:
+
+	- 
