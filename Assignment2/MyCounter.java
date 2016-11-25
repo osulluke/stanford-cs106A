@@ -15,6 +15,6 @@ public class MyCounter {
 
 		return temp;
 	}
-	/*Single instance variable to contain the counter number*/
-	private int counter;
+	/*Single CLASS variable to contain the counter number*/
+	private static int counter;
 }

@@ -82,7 +82,7 @@ Lesson 8:
 	variables - which actually do change.
 	- Random number generators. Use seeds to test program for bugs...this way
 	when you're testing a program, it will have reproducible results.
-	
+
 	- 'Class' variables vs. 'instance' variables: When you define a class variable
 	you use the 'static' keyword to do so. When accessing these variables, you can
 	either use an actual object (th.x) or the actual class (Thing.x). The
@@ -90,6 +90,16 @@ Lesson 8:
 	explicitly clear that the variable being accessed is a property of the entire
 	class, as opposed to a single instance.
 
-Lesson 9:
+Lesson 9: Creating your own classes
 
-	-
+	- Constructors can have different sets of parameters...it's how it will know
+	which of the constructors to call. They also DO NOT have return types. They
+	are called, create an object, and (I think...) return a 'reference/pointer'
+	to the object.
+	- 'Shadowing/aliasing' happens when a parameter name is the same as an instance
+	variable name - it can be corrected, however with the use of the 'this'
+	object. For instance, this.counter = counter...which assigns the counter
+	parameter to the instance object's instance variable called counter...a better
+	way to do it is to use different names for parameters and instance variables.
+	- Objects are passed BY REFERENCE!!! Meaning that the WHOLE object is passed.
+	This is different from primitive types, which are passed by VALUE.
