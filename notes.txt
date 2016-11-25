@@ -82,7 +82,14 @@ Lesson 8:
 	variables - which actually do change.
 	- Random number generators. Use seeds to test program for bugs...this way
 	when you're testing a program, it will have reproducible results.
+	
+	- 'Class' variables vs. 'instance' variables: When you define a class variable
+	you use the 'static' keyword to do so. When accessing these variables, you can
+	either use an actual object (th.x) or the actual class (Thing.x). The
+	preferred way of doing this is by way of the 'class' variable, to make it
+	explicitly clear that the variable being accessed is a property of the entire
+	class, as opposed to a single instance.
 
 Lesson 9:
 
-	- 
+	-
