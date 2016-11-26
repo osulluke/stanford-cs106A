@@ -103,3 +103,23 @@ Lesson 9: Creating your own classes
 	way to do it is to use different names for parameters and instance variables.
 	- Objects are passed BY REFERENCE!!! Meaning that the WHOLE object is passed.
 	This is different from primitive types, which are passed by VALUE.
+
+//JavaDOC//
+
+	- JAVADOC comments begin with /**, and end with */ - have a feeling this will
+	be important when documenting your own classes for later on. There are also a
+	couple of other important 'tags' that will allow your comments to be transformed
+	into html which will generate documentation for your classes.
+		A couple of examples: @param, @result, etc.
+	- Javadoc makes it nice, because you can look at a webpage vs. scrolling through
+	actual program code.
+	/**
+	 * Sets the number of units earned
+	 * @param units The number of units earned.
+	 * @return name The string representation of the student's name.
+	 */
+	 - Notice how the parameters are included within a javadoc style comment.
+	 - All classes you write (with the exception of programs) should have a toString()
+	 method - because that method is included with all of your classes, since it
+	 is part of the most basic 'object' in java...this is called 'overriding', I
+	 think.
