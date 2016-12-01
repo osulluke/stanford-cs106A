@@ -123,3 +123,24 @@ Lesson 9: Creating your own classes
 	 method - because that method is included with all of your classes, since it
 	 is part of the most basic 'object' in java...this is called 'overriding', I
 	 think.
+
+Lesson 10:
+
+	- A brief review from lesson 9's classes discussion: why would it be necessary
+	to have both a setter and a getter with a private instance variable? I mean if
+	you give someone the ability to change it and read it, why not just make it public?
+	The answer is 'encapsulation'. You don't want the implementation of a piece of
+	data to matter to the user, thus, while in most cases setters and getters will
+	deal with simple variables, there may be other, more complex, ways of implementing
+	them which will not lend themselves very well to having a publicly available
+	instance variable.
+	- Overriding methods gives you the ability to define different behavior for a
+	subclass using the same method name with the same signature - for instance
+	toString().
+	- Important point! Subclasses can no longer access the private instance variables
+	of the super class. As I think about it, this makes sense, because there may be
+	a lot of temp variables and other station-keeping information that a subclass
+	shouldn't be able to access.
+	- Some good examples using thw acm.graphics class showed me some better ways
+	to solve the previous problems I was having working on the Pyramid problem. It's
+	still not fully fixed, but it is better now.
