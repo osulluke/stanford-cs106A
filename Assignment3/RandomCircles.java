@@ -17,6 +17,7 @@ public class RandomCircles extends GraphicsProgram {
 
 			circle[i] = new GOval(circleSize, circleSize);
 			circle[i].setFillColor(rgen.nextColor());
+			circle[i].setColor(circle[i].getFillColor());
 			circle[i].setFilled(true);
 			
 			x = rgen.nextInt(getWidth());
@@ -42,7 +43,16 @@ public class RandomCircles extends GraphicsProgram {
 		}
   		
   		while(true) {
-  			;
+  			for (int i = 0; i < numCircles; i++) {
+  				circle[i].setColor(rgen.nextColor());
+  				circle[i].setFillColor(circle[i].getColor());
+  				pause(rgen.nextDouble(150, 400));
+  			}
+  			for (int i = 0; i < numCircles; i++) {
+  				circle[i].setColor(rgen.nextColor());
+  				circle[i].setFillColor(circle[i].getColor());
+  			}
+			pause(rgen.nextDouble(150, 1000));
   		}
 	}
 	
