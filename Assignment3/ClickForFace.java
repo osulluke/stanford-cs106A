@@ -23,6 +23,6 @@ public class ClickForFace extends GraphicsProgram {
 	// This method is called everytime user clicks mouse
 	public void mouseClicked(MouseEvent e) {
 		GFace face = new GFace(FACE_DIAM, FACE_DIAM);
-		add(face, e.getX(), e.getY());
+		add(face, e.getX() - face.getWidth() / 2, e.getY() - face.getHeight() / 2);
 	}
 }
