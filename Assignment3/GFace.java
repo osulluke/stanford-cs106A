@@ -10,7 +10,7 @@ public class GFace extends GCompound {
 	
 	/* Constants specifying feature size as a fraction of head size */
 	private static final double EYE_WIDTH = 0.15;
-	private static final double EYE_HEIGHT = 0.15;
+	private static final double EYE_HEIGHT = 0.07;
 	private static final double NOSE_WIDTH = 0.15;
 	private static final double NOSE_HEIGHT = 0.10;
 	private static final double MOUTH_WIDTH = 0.50;
