@@ -19,14 +19,40 @@ public class ColorChangingSquare extends GraphicsProgram {
 	public void run() {
 		
 		GRect square = new GRect(SQUARE_SIZE, SQUARE_SIZE);
+		GRect square1 = new GRect(SQUARE_SIZE, SQUARE_SIZE);
+		GRect square2 = new GRect(SQUARE_SIZE, SQUARE_SIZE);
+		GRect square3 = new GRect(SQUARE_SIZE, SQUARE_SIZE);
+		GRect square4 = new GRect(SQUARE_SIZE, SQUARE_SIZE);
+		
 		square.setFilled(true);
+		square1.setFilled(true);
+		square2.setFilled(true);
+		square3.setFilled(true);
+		square4.setFilled(true);
+		
 		add(square, (getWidth() - SQUARE_SIZE) / 2,
 				(getHeight() - SQUARE_SIZE) / 2);
+		
+		add(square1, (getWidth() - 3*SQUARE_SIZE) / 2,
+				(getHeight() - 3*SQUARE_SIZE) / 2);
+		
+		add(square2, (getWidth() + 1*SQUARE_SIZE) / 2,
+				(getHeight() - 3*SQUARE_SIZE) / 2);
+		
+		add(square3, (getWidth() - 3*SQUARE_SIZE) / 2,
+				(getHeight() + SQUARE_SIZE) / 2);
+		
+		add(square4, (getWidth() + 1*SQUARE_SIZE) / 2,
+				(getHeight() + 1*SQUARE_SIZE) / 2);
 		
 		/* Note: we meant to have this infinite loop */
 		while (true) {
 			square.setColor(rgen.nextColor());
-			pause(PAUSE_TIME);
+			square1.setColor(rgen.nextColor());
+			square2.setColor(rgen.nextColor());
+			square3.setColor(rgen.nextColor());
+			square4.setColor(rgen.nextColor());
+			pause(rgen.nextDouble(150, 1000));
 		}
 	}
 	
