@@ -155,3 +155,5 @@ Lesson 11: More on graphics; Event-driven Programming
 	the different functions were called in a specified order implemented in the
 	design of the program. Event-driven programs (asynchronus), don't proceed in this way. Events
 	can happen at any time, and the program then reacts/behaves appropriately.
+
+Lesson 12: 
