@@ -3,11 +3,14 @@ import acm.program.*;
 import acm.util.*;
 
 public class RandomCircles extends GraphicsProgram {
-	int numCircles = 20;
+	int numCircles = 200;
 	GOval[] circle = new GOval[numCircles];
 	int circleSize = 0;
 	int x = 0;
 	int y = 0;
+	
+	int lPause = 0;
+	int uPause = 1;
 
 	public void run() {
 
@@ -47,7 +50,7 @@ public class RandomCircles extends GraphicsProgram {
   			for (int i = 0; i < numCircles; i++) {
   				circle[i].setColor(rgen.nextColor());
   				circle[i].setFillColor(circle[i].getColor());
-  				pause(rgen.nextDouble(150, 400));
+  				pause(rgen.nextDouble(lPause, uPause));
   				
   				/*
   				 * Choose the positions within the bounds of the array
@@ -55,8 +58,10 @@ public class RandomCircles extends GraphicsProgram {
 
   				int posX = rgen.nextInt(getWidth());
   				int posY = rgen.nextInt(getHeight());
-  				double rBound = getWidth() - circle[i].getX();
-  				double lBound = 0;
+  				double rBound = getWidth() - circle[i].getWidth();
+  				double lBound = 0 + circle[i].getWidth();
+  				double uBound = getHeight() - circle[i].getHeight();
+  				double bBound = 0 + circle[i].getHeight();
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
@@ -64,11 +69,10 @@ public class RandomCircles extends GraphicsProgram {
   					continue;
   				}
   				
-  				if (circle[i].getY() > posY + getHeight()) {
-  					posY = posY - (int) 1.0 * (int) circle[i].getHeight();
-  				}
-  				else if (posY - circle[i].getY() > getHeight()) {
-  					posY = posY + (int) 1.0 * (int) circle[i].getHeight();
+  				//Y boundary
+  				if (posY > uBound || posY < bBound) {
+  					posY = rgen.nextInt(getHeight());
+  					continue;
   				}
   				/*
   				 * Place the circle in the corrected area.
@@ -87,8 +91,10 @@ public class RandomCircles extends GraphicsProgram {
   				
   				posX = rgen.nextInt(getWidth());
   				posY = rgen.nextInt(getHeight());
-  				double rBound = getWidth() - circle[i].getX();
-  				double lBound = 0;
+  				double rBound = getWidth() - circle[i].getWidth();
+  				double lBound = 0 + circle[i].getWidth();
+  				double uBound = getHeight() - circle[i].getHeight();
+  				double bBound = 0 + circle[i].getHeight();
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
@@ -96,11 +102,10 @@ public class RandomCircles extends GraphicsProgram {
   					continue;
   				}
   				
-  				if (circle[i].getY() > posY + getHeight()) {
-  					posY = posY - (int) circle[i].getHeight();
-  				}
-  				else if (posY - circle[i].getY() > getHeight()) {
-  					posY = posY + (int) circle[i].getHeight();
+  				//Y boundary
+  				if (posY > uBound || posY < bBound) {
+  					posY = rgen.nextInt(getHeight());
+  					continue;
   				}
   				/*
   				 * Place the circle in the corrected area.
@@ -108,7 +113,7 @@ public class RandomCircles extends GraphicsProgram {
   				circle[i].setLocation(posX, posY);
   				
   			}
-			pause(rgen.nextDouble(150, 1000));
+			pause(rgen.nextDouble(lPause, uPause));
   		}
 	}
 	
