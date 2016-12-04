@@ -13,7 +13,7 @@ public class RandomCircles extends GraphicsProgram {
 
   		for(int i = 0; i < numCircles; i++) {
 
-			circleSize = rgen.nextInt(10, 100);
+			circleSize = rgen.nextInt(90, 100);
 
 			circle[i] = new GOval(circleSize, circleSize);
 			circle[i].setFillColor(rgen.nextColor());
@@ -24,19 +24,19 @@ public class RandomCircles extends GraphicsProgram {
 			y = rgen.nextInt(getHeight());
 			
 			if (x + circleSize > getWidth()) {
-				x = x - 1*circleSize;
+				x = x - circleSize;
 			}
 			
 			if (x - circleSize < 0) {
-				x = x + (circleSize);
+				x = x + circleSize;
 			}
 			
 			if (y + circleSize > getHeight()) {
-				y = y - 1*circleSize;
+				y = y - circleSize;
 			}
 			
 			if (y - circleSize < 0) {
-				y = y + (circleSize);
+				y = y + circleSize;
 			}
 			
 			add(circle[i], x, y);
@@ -53,21 +53,21 @@ public class RandomCircles extends GraphicsProgram {
   				 * Choose the positions within the bounds of the array
   				 */
 
-  				
   				int posX = rgen.nextInt(getWidth());
   				int posY = rgen.nextInt(getHeight());
+  				double rBound = getWidth() - circle[i].getX();
+  				double lBound = 0;
   				
-  				if (circle[i].getX() < posX + circle[i].getWidth()) {
-  					posX = posX - (int) circle[i].getWidth();
-  				}
-  				else if (posX - circle[i].getX() > circle[i].getWidth()) {
-  					posX = posX + (int) circle[i].getWidth();
+  				//X boundary
+  				if (posX > rBound || posX < lBound) {
+  					posX = rgen.nextInt(getWidth());
+  					continue;
   				}
   				
-  				if (circle[i].getY() > posY + circle[i].getHeight()) {
+  				if (circle[i].getY() > posY + getHeight()) {
   					posY = posY - (int) 1.0 * (int) circle[i].getHeight();
   				}
-  				else if (posY - circle[i].getY() > circle[i].getHeight()) {
+  				else if (posY - circle[i].getY() > getHeight()) {
   					posY = posY + (int) 1.0 * (int) circle[i].getHeight();
   				}
   				/*
@@ -75,6 +75,7 @@ public class RandomCircles extends GraphicsProgram {
   				 */
    				circle[i].setLocation(posX, posY);
   			}
+  			
   			for (int i = 0; i < numCircles; i++) {
   				circle[i].setColor(rgen.nextColor());
   				circle[i].setFillColor(circle[i].getColor());
@@ -86,18 +87,19 @@ public class RandomCircles extends GraphicsProgram {
   				
   				posX = rgen.nextInt(getWidth());
   				posY = rgen.nextInt(getHeight());
+  				double rBound = getWidth() - circle[i].getX();
+  				double lBound = 0;
   				
-  				if (circle[i].getX() < posX + circle[i].getWidth()) {
-  					posX = posX - (int) circle[i].getWidth();
-  				}
-  				else if (posX - circle[i].getX() > circle[i].getWidth()) {
-  					posX = posX + (int) circle[i].getWidth();
+  				//X boundary
+  				if (posX > rBound || posX < lBound) {
+  					posX = rgen.nextInt(getWidth());
+  					continue;
   				}
   				
-  				if (circle[i].getY() > posY + circle[i].getHeight()) {
+  				if (circle[i].getY() > posY + getHeight()) {
   					posY = posY - (int) circle[i].getHeight();
   				}
-  				else if (posY - circle[i].getY() > circle[i].getHeight()) {
+  				else if (posY - circle[i].getY() > getHeight()) {
   					posY = posY + (int) circle[i].getHeight();
   				}
   				/*
@@ -110,9 +112,5 @@ public class RandomCircles extends GraphicsProgram {
   		}
 	}
 	
-	private int fixX (int x) {
-		
-	}
-
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 }
