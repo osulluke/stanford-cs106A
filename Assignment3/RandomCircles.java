@@ -3,20 +3,20 @@ import acm.program.*;
 import acm.util.*;
 
 public class RandomCircles extends GraphicsProgram {
-	int numCircles = 200;
+	int numCircles = 10;
 	GOval[] circle = new GOval[numCircles];
 	int circleSize = 0;
 	int x = 0;
 	int y = 0;
 	
-	int lPause = 0;
-	int uPause = 1;
+	int lPause = 150;
+	int uPause = 500;
 
 	public void run() {
 
   		for(int i = 0; i < numCircles; i++) {
 
-			circleSize = rgen.nextInt(90, 100);
+			circleSize = rgen.nextInt(10, 100);
 
 			circle[i] = new GOval(circleSize, circleSize);
 			circle[i].setFillColor(rgen.nextColor());
@@ -59,9 +59,9 @@ public class RandomCircles extends GraphicsProgram {
   				int posX = rgen.nextInt(getWidth());
   				int posY = rgen.nextInt(getHeight());
   				double rBound = getWidth() - circle[i].getWidth();
-  				double lBound = 0 ;//+ circle[i].getWidth();
+  				double lBound = 0;
   				double uBound = getHeight() - circle[i].getHeight();
-  				double bBound = 0 ;//+ circle[i].getHeight();
+  				double bBound = 0;
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
@@ -92,9 +92,9 @@ public class RandomCircles extends GraphicsProgram {
   				posX = rgen.nextInt(getWidth());
   				posY = rgen.nextInt(getHeight());
   				double rBound = getWidth() - circle[i].getWidth();
-  				double lBound = 0 ;//+ circle[i].getWidth();
+  				double lBound = 0;
   				double uBound = getHeight() - circle[i].getHeight();
-  				double bBound = 0 ;//+ circle[i].getHeight();
+  				double bBound = 0;
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
