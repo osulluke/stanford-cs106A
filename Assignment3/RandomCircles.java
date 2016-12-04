@@ -59,9 +59,9 @@ public class RandomCircles extends GraphicsProgram {
   				int posX = rgen.nextInt(getWidth());
   				int posY = rgen.nextInt(getHeight());
   				double rBound = getWidth() - circle[i].getWidth();
-  				double lBound = 0 + circle[i].getWidth();
+  				double lBound = 0 ;//+ circle[i].getWidth();
   				double uBound = getHeight() - circle[i].getHeight();
-  				double bBound = 0 + circle[i].getHeight();
+  				double bBound = 0 ;//+ circle[i].getHeight();
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
@@ -92,9 +92,9 @@ public class RandomCircles extends GraphicsProgram {
   				posX = rgen.nextInt(getWidth());
   				posY = rgen.nextInt(getHeight());
   				double rBound = getWidth() - circle[i].getWidth();
-  				double lBound = 0 + circle[i].getWidth();
+  				double lBound = 0 ;//+ circle[i].getWidth();
   				double uBound = getHeight() - circle[i].getHeight();
-  				double bBound = 0 + circle[i].getHeight();
+  				double bBound = 0 ;//+ circle[i].getHeight();
   				
   				//X boundary
   				if (posX > rBound || posX < lBound) {
