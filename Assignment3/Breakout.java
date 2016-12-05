@@ -208,6 +208,7 @@ public class Breakout extends GraphicsProgram {
 	public boolean checkCollision() {
 		
 		collided = checkWallCollisions();
+		collided = checkPaddleCollision();
 		
 		return collided;
 	}
@@ -234,6 +235,26 @@ public class Breakout extends GraphicsProgram {
 		/* Check if ball hits right edge. */
 		if (ball.getX() + BALL_RADIUS >= WIDTH) {
 			vx = -vx;
+			return false;
+		}
+		
+		return false;
+	}
+	
+	public boolean checkPaddleCollision() {
+		double ballX = ball.getX();
+		double ballY = ball.getY();
+		double padLeft = paddle.getX();
+		double padRight = padLeft + PADDLE_WIDTH;
+		
+		boolean withinX = (ballX >= padLeft && ballX <= padRight);
+		boolean withinY = (ballY <= HEIGHT - PADDLE_Y_OFFSET && ballY >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+		
+		if (withinX && withinY) {
+			vy = -vy;
+			vx = rgen.nextDouble(0.0, vy);
+			withinX = false;
+			withinY = false;
 			return false;
 		}
 		
