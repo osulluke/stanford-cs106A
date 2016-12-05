@@ -175,4 +175,10 @@ From the book:
 	since they are peaceful bugs.
 ////////////////////////////////////////////////////////////////////////////////
 
-Lesson 12:
+Lesson 12: Enumerations, strings, immutable types.
+
+	- Lesson covers the ASCII character set, characters 'a' vs. strings "a" in Java,
+	and some specific differences related to reading characters or strings as well as
+	calling methods on them or passing messages to them.
+
+Lesson 13: 
