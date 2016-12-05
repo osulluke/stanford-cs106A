@@ -61,6 +61,11 @@ public class Breakout extends GraphicsProgram {
 /** Runs the Breakout program. */
 	public void run() {
 		setUpBricks();
+		addPaddle();
+		
+		for (int lives = 0; lives < NTURNS; lives++) {
+			;
+		}
 		
 		return;
 	}
@@ -107,6 +112,23 @@ public class Breakout extends GraphicsProgram {
 		
 		return;
 	}
+	
+	private void addPaddle() {
+		
+		/* Add the mouse listeners for the paddle to move*/
+		addMouseListeners();
+		
+		/* Make the paddle and add to the game. */
+		GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
+		paddle.setFillColor(Color.BLACK);
+		paddle.setFilled(true);
+		
+		/* Add paddle to game board. */
+		add(paddle, 45, HEIGHT - PADDLE_Y_OFFSET);
+		
+		return;
+	}
+
 	
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
