@@ -60,7 +60,14 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		/* You fill this in, along with any subsidiary methods */
+		setUpBricks();
+		
+		return;
+	}
+	
+	private void setUpBricks() {
+		
+		return;
 	}
 
 }
