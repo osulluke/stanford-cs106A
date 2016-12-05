@@ -77,12 +77,10 @@ public class Breakout extends GraphicsProgram {
 		for (int lives = 0; lives < NTURNS; lives++) {
 			ball = makeBall();
 			add(ball);
-			waitForClick();
 			play();
-			removeBall(ball);
 			waitForClick();
 		}
-		
+
 		gameOver();
 		/* 'label' code below is purely for testing and
 		 * should be removed after the game is complete. */
@@ -170,49 +168,61 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		
+
 		clickWait = new GLabel("Mouse click.");
 		clickWait.setFont("Times New Roman-36");
 		add(clickWait, 0, 650);
-		
+
 		return;
 	}
-	
+
 	public GOval makeBall() {
 		/* Make a new (black) ball and place it in the middle of the
 		 * game board. */
 		GOval ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLACK);
-		
+
 		return ball;
 	}
-	
+
 	public void play() {
-		
+		waitForClick();
+		vx = rgen.nextDouble(1.0, 3.0);
+		if (rgen.nextBoolean(0.5)) {
+			vx = -vx;
+		}
+		int testRun = 0;
+		while(testRun < 100) {
+			ball.move(vx, vy);
+			pause(25);
+			testRun++;
+		}
+		removeBall(ball);
 		return;
 	}
-	
+
 	public void removeBall(GOval b) {
 		remove(b);
 		return;
 	}
-	
+
 	public void gameOver() {
 		gameOver = new GLabel("Game Over");
 		gameOver.setFont("Times New Roman-24");
 		add(gameOver, WIDTH / 2, HEIGHT / 2);
 		waitForClick();
 		remove(gameOver);
-		
+
 		return;
 	}
-	
+
 	/* Private (game) instance variables for the paddle, and brick positioning
 	 * and station-keeping. */
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private static GRect paddle;
 	private static GOval ball;
+	private static double vx, vy = 3.0;
 	private static GLabel label;
 	private static GLabel clickWait;
 	private static GLabel gameOver;
