@@ -110,6 +110,7 @@ public class RandomCircles extends GraphicsProgram {
   				/*
   				 * Place the circle in the corrected area.
   				 */
+  				circle[i].setVisible(rgen.nextBoolean(rgen.nextDouble(0,1.0)));
   				circle[i].setLocation(posX, posY);
   				
   			}
