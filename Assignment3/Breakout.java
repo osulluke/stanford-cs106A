@@ -188,9 +188,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void play() {
-		
+
 		waitForClick();
-		
+
 		vx = rgen.nextDouble(1.0, 3.0);
 		vy = Y_VEL;
 		if (rgen.nextBoolean(0.5)) {
@@ -206,15 +206,15 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public boolean checkCollision() {
-		
+
 		collided = checkWallCollisions();
 		collided = checkPaddleCollision();
-		
+
 		return collided;
 	}
 
 	public boolean checkWallCollisions() {
-		
+
 		/* Check if ball hits bottom wall. Eventually
 		 * this will need to return true to signify the
 		 * end of a turn. */
@@ -237,30 +237,31 @@ public class Breakout extends GraphicsProgram {
 			vx = -vx;
 			return false;
 		}
-		
+
 		return false;
 	}
-	
+
 	public boolean checkPaddleCollision() {
 		double ballX = ball.getX();
 		double ballY = ball.getY();
 		double padLeft = paddle.getX();
 		double padRight = padLeft + PADDLE_WIDTH;
-		
+
 		boolean withinX = (ballX >= padLeft && ballX <= padRight);
 		boolean withinY = (ballY <= HEIGHT - PADDLE_Y_OFFSET && ballY >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
-		
+
 		if (withinX && withinY) {
 			vy = -vy;
 			vx = rgen.nextDouble(0.0, vy);
+			bounceNoise.play();
 			withinX = false;
 			withinY = false;
 			return false;
 		}
-		
+
 		return false;
 	}
-	
+
 	public void removeBall(GOval b) {
 		remove(b);
 		return;
@@ -288,4 +289,5 @@ public class Breakout extends GraphicsProgram {
 	private static boolean collided = false;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
+	AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
 }
