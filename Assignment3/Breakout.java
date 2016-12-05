@@ -64,7 +64,7 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		/* Add all the rows of bricks to the world.*/
 		setUpBricks();
-		
+
 		/*
 		 * Make the paddle and then apply the fixPaddle()
 		 * function to fill it in and add it to the middle
@@ -72,17 +72,23 @@ public class Breakout extends GraphicsProgram {
 		paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
 		fixPaddle(paddle);
 
-		/* Begin gameplay; you have three lives/turns, after 
+		/* Begin gameplay; you have three lives/turns, after
 		 * which, gameplay ends. */
 		for (int lives = 0; lives < NTURNS; lives++) {
-			;
+			ball = makeBall();
+			add(ball);
+			waitForClick();
+			play();
+			removeBall(ball);
+			waitForClick();
 		}
 		
-		/* 'label' code below is purely for testing and 
+		gameOver();
+		/* 'label' code below is purely for testing and
 		 * should be removed after the game is complete. */
 		label = new GLabel("Mouse pos: ");
 		label.setFont("Times New Roman-36");
-		add(label, 0, 250);
+		//add(label, 0, 250);
 
 		return;
 	}
@@ -121,7 +127,7 @@ public class Breakout extends GraphicsProgram {
 			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
 			brick.setFillColor(c);
 			brick.setColor(c);
-			
+
 			//brick.setFilled(rgen.nextBoolean(.65));
 			/* Add a row of bricks. */
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
@@ -144,7 +150,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		
+
 		/* Cascading 'if' statement makes sure to keep
 		 * the paddle within the boundaries of the game board. */
 		if (e.getX() < 0) {
@@ -156,18 +162,60 @@ public class Breakout extends GraphicsProgram {
 		else {
 			paddle.setLocation(e.getX(), HEIGHT - PADDLE_Y_OFFSET);
 		}
-		
+
 		/* label code below is for testing only, and should be removed
 		 * after the game is complete. */
-		label.setLabel("Mouse: (" + e.getX() + ", " + e.getY() + ")");
+		//label.setLabel("Mouse: (" + e.getX() + ", " + e.getY() + ")");
 		return;
 	}
 
+	public void mouseClicked(MouseEvent e) {
+		
+		clickWait = new GLabel("Mouse click.");
+		clickWait.setFont("Times New Roman-36");
+		add(clickWait, 0, 650);
+		
+		return;
+	}
+	
+	public GOval makeBall() {
+		/* Make a new (black) ball and place it in the middle of the
+		 * game board. */
+		GOval ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
+		ball.setFilled(true);
+		ball.setFillColor(Color.BLACK);
+		
+		return ball;
+	}
+	
+	public void play() {
+		
+		return;
+	}
+	
+	public void removeBall(GOval b) {
+		remove(b);
+		return;
+	}
+	
+	public void gameOver() {
+		gameOver = new GLabel("Game Over");
+		gameOver.setFont("Times New Roman-24");
+		add(gameOver, WIDTH / 2, HEIGHT / 2);
+		waitForClick();
+		remove(gameOver);
+		
+		return;
+	}
+	
 	/* Private (game) instance variables for the paddle, and brick positioning
 	 * and station-keeping. */
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private static GRect paddle;
+	private static GOval ball;
 	private static GLabel label;
+	private static GLabel clickWait;
+	private static GLabel gameOver;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
 }
