@@ -50,6 +50,7 @@ public class Breakout extends GraphicsProgram {
 
 /** Radius of the ball in pixels */
 	private static final int BALL_RADIUS = 10;
+	private static final int BALL_DIAMETER = 2*BALL_RADIUS;
 
 /** Offset of the top brick row from the top */
 	private static final int BRICK_Y_OFFSET = 70;
@@ -127,7 +128,7 @@ public class Breakout extends GraphicsProgram {
 			brick.setFillColor(c);
 			brick.setColor(c);
 
-			//brick.setFilled(rgen.nextBoolean(.65));
+			brick.setFilled(rgen.nextBoolean(1.0));
 			/* Add a row of bricks. */
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
@@ -183,6 +184,7 @@ public class Breakout extends GraphicsProgram {
 		ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLACK);
+		ball.sendToBack();
 
 		return ball;
 	}
@@ -210,7 +212,7 @@ public class Breakout extends GraphicsProgram {
 		collided = checkWallCollisions();
 		collided = checkPaddleCollision();
 		collided = checkBrickCollision();
-		
+
 		return collided;
 	}
 
@@ -264,10 +266,38 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private boolean checkBrickCollision() {
-		
+		/* First, find the brick that the ball collides with.*/
+		crasher = getCollidingBrick();
+
+		/* Next, determine what to do with that brick.*/
+		if( crasher == null ) {return false;}
+		else { remove(crasher); }
+
 		return false;
 	}
-	
+
+	private GObject getCollidingBrick() {
+		/* This set of variables represent the different locations on each
+		 * 'corner' of the ball. */
+		GPoint topLeft = new GPoint(ball.getLocation());
+		GPoint topRight = new GPoint(topLeft.getX() + BALL_DIAMETER,topLeft.getY());
+		GPoint bottomLeft = new GPoint(topLeft.getX(), topLeft.getY() + BALL_DIAMETER);
+		GPoint bottomRight = new GPoint(topLeft.getX() + BALL_DIAMETER, topLeft.getY() + BALL_DIAMETER);
+
+		/* Local variable to represent the smacked brick. */
+		GObject smackedBrick;
+
+		/* Logic to return an element that coincides with the brick, and then
+		 * return it if there is a collision. */
+		if ( (smackedBrick = getElementAt(topLeft)) != null) {return smackedBrick;}
+		else if ( (smackedBrick = getElementAt(topRight)) != null) {return smackedBrick;}
+		else if ( (smackedBrick = getElementAt(bottomLeft)) != null) {return smackedBrick;}
+		else if ( (smackedBrick = getElementAt(bottomRight)) != null) {return smackedBrick;}
+
+		/* If no collision, return null. */
+		return null;
+	}
+
 	private void removeBall(GOval b) {
 		remove(b);
 		return;
@@ -293,7 +323,8 @@ public class Breakout extends GraphicsProgram {
 	private static GLabel clickWait;
 	private static GLabel gameOver;
 	private static boolean collided = false;
+	private static GObject crasher;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
-	private static AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
+	private AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
 }
