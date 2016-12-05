@@ -177,7 +177,7 @@ public class Breakout extends GraphicsProgram {
 		return;
 	}
 
-	public GOval makeBall() {
+	private GOval makeBall() {
 		/* Make a new (black) ball and place it in the middle of the
 		 * game board. */
 		ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
@@ -187,7 +187,7 @@ public class Breakout extends GraphicsProgram {
 		return ball;
 	}
 
-	public void play() {
+	private void play() {
 
 		waitForClick();
 
@@ -205,15 +205,16 @@ public class Breakout extends GraphicsProgram {
 		return;
 	}
 
-	public boolean checkCollision() {
+	private boolean checkCollision() {
 
 		collided = checkWallCollisions();
 		collided = checkPaddleCollision();
-
+		collided = checkBrickCollision();
+		
 		return collided;
 	}
 
-	public boolean checkWallCollisions() {
+	private boolean checkWallCollisions() {
 
 		/* Check if ball hits bottom wall. Eventually
 		 * this will need to return true to signify the
@@ -241,7 +242,7 @@ public class Breakout extends GraphicsProgram {
 		return false;
 	}
 
-	public boolean checkPaddleCollision() {
+	private boolean checkPaddleCollision() {
 		double ballX = ball.getX();
 		double ballY = ball.getY();
 		double padLeft = paddle.getX();
@@ -262,12 +263,17 @@ public class Breakout extends GraphicsProgram {
 		return false;
 	}
 
-	public void removeBall(GOval b) {
+	private boolean checkBrickCollision() {
+		
+		return false;
+	}
+	
+	private void removeBall(GOval b) {
 		remove(b);
 		return;
 	}
 
-	public void gameOver() {
+	private void gameOver() {
 		gameOver = new GLabel("Game Over");
 		gameOver.setFont("Times New Roman-24");
 		add(gameOver, WIDTH / 2, HEIGHT / 2);
@@ -289,5 +295,5 @@ public class Breakout extends GraphicsProgram {
 	private static boolean collided = false;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
-	AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
+	private static AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
 }
