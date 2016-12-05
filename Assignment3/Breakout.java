@@ -67,7 +67,47 @@ public class Breakout extends GraphicsProgram {
 	
 	private void setUpBricks() {
 		
+		for (int j = 0; j < NBRICK_ROWS; j++) {
+			yPos = yPos + (BRICK_HEIGHT) + BRICK_SEP;
+			
+			if (j < 2) {
+				layBrickRow(Color.RED);
+			}
+			else if (j < 4) { 
+				layBrickRow(Color.ORANGE); 
+				}
+			else if (j < 6) {
+				layBrickRow(Color.YELLOW); ;
+			}
+			else if (j < 8) {
+				layBrickRow(Color.GREEN); ;
+			}
+			else if (j < 10) {
+				layBrickRow(Color.CYAN); ;
+			}
+		}
+		
 		return;
 	}
-
+	
+	private void layBrickRow(Color c) {
+		/*
+		 * Add two rows of that color brick.
+		 */
+		for (int i = 0; i < NBRICKS_PER_ROW; i++) {
+			
+			/* Make a new brick.*/
+			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
+			brick.setFillColor(c);
+			brick.setColor(c);
+			brick.setFilled(true);
+			/* Add a row of bricks*/
+			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
+		}
+		
+		return;
+	}
+	
+	private static int xPos = 0;
+	private static int yPos = BRICK_Y_OFFSET;
 }
