@@ -57,6 +57,8 @@ public class Breakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 
+/** Initial Y velocity (+ is downward) */
+	private static final double Y_VEL = 3.0;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -186,29 +188,38 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void play() {
+		
 		waitForClick();
+		
 		vx = rgen.nextDouble(1.0, 3.0);
+		vy = Y_VEL;
 		if (rgen.nextBoolean(0.5)) {
 			vx = -vx;
 		}
-		int testRun = 0;
+
 		while(!checkCollision()) {
-			
 			ball.move(vx, vy);
 			pause(25);
-			testRun++;
 		}
 		removeBall(ball);
 		return;
 	}
 
 	public boolean checkCollision() {
+		
+		collided = checkWallCollisions();
+		
+		return collided;
+	}
+
+	public boolean checkWallCollisions() {
+		
 		/* Check if ball hits bottom wall. Eventually
 		 * this will need to return true to signify the
 		 * end of a turn. */
 		if (ball.getY() - BALL_RADIUS >= HEIGHT) {
 			vy = -vy;
-			return false;
+			return true;
 		}
 		/* Check if ball hits top of wall. */
 		if (ball.getY() <= 0) {
@@ -228,7 +239,7 @@ public class Breakout extends GraphicsProgram {
 		
 		return false;
 	}
-
+	
 	public void removeBall(GOval b) {
 		remove(b);
 		return;
@@ -249,10 +260,11 @@ public class Breakout extends GraphicsProgram {
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private static GRect paddle;
 	private static GOval ball;
-	private static double vx, vy = 3.0;
+	private static double vx, vy;
 	private static GLabel label;
 	private static GLabel clickWait;
 	private static GLabel gameOver;
+	private static boolean collided = false;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
 }
