@@ -78,7 +78,6 @@ public class Breakout extends GraphicsProgram {
 			ball = makeBall();
 			add(ball);
 			play();
-			waitForClick();
 		}
 
 		gameOver();
@@ -179,7 +178,7 @@ public class Breakout extends GraphicsProgram {
 	public GOval makeBall() {
 		/* Make a new (black) ball and place it in the middle of the
 		 * game board. */
-		GOval ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
+		ball = new GOval(WIDTH / 2, HEIGHT / 2, BALL_RADIUS, BALL_RADIUS);
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLACK);
 
@@ -193,13 +192,41 @@ public class Breakout extends GraphicsProgram {
 			vx = -vx;
 		}
 		int testRun = 0;
-		while(testRun < 100) {
+		while(!checkCollision()) {
+			
 			ball.move(vx, vy);
 			pause(25);
 			testRun++;
 		}
 		removeBall(ball);
 		return;
+	}
+
+	public boolean checkCollision() {
+		/* Check if ball hits bottom wall. Eventually
+		 * this will need to return true to signify the
+		 * end of a turn. */
+		if (ball.getY() - BALL_RADIUS >= HEIGHT) {
+			vy = -vy;
+			return false;
+		}
+		/* Check if ball hits top of wall. */
+		if (ball.getY() <= 0) {
+			vy = -vy;
+			return false;
+		}
+		/* Check if ball hits left edge. */
+		if (ball.getX() <= 0) {
+			vx = -vx;
+			return false;
+		}
+		/* Check if ball hits right edge. */
+		if (ball.getX() + BALL_RADIUS >= WIDTH) {
+			vx = -vx;
+			return false;
+		}
+		
+		return false;
 	}
 
 	public void removeBall(GOval b) {
