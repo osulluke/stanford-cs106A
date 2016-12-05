@@ -11,6 +11,7 @@
  */
 
 import acm.graphics.*;
+import acm.util.*;
 import acm.program.*;
 import java.awt.*;
 
@@ -23,7 +24,7 @@ public class Pyramid extends GraphicsProgram {
 	private static final int BRICK_HEIGHT = 12;
 
 /** Number of bricks in the base of the pyramid */
-	private static final int BRICKS_IN_BASE = 14;
+	private static final int BRICKS_IN_BASE = 24;
 
 	public void run() {
 		buildPyramid();
@@ -43,8 +44,12 @@ public class Pyramid extends GraphicsProgram {
 		int yPos = (getHeight() - (i * BRICK_HEIGHT) - BRICK_HEIGHT);
 
 		for (int j = 0; j < BRICKS_IN_BASE - i; j++) {
-			GRect rec = new GRect(xPos + j*BRICK_WIDTH + i*BRICK_WIDTH / 2, yPos, BRICK_WIDTH, BRICK_HEIGHT);
+			GOval rec = new GOval(xPos + j*BRICK_WIDTH + i*BRICK_WIDTH / 2, yPos, BRICK_WIDTH, BRICK_HEIGHT);
+			rec.setFilled(true);
+			rec.setFillColor(rgen.nextColor());
 			add(rec);
 		}
 	}
+	
+	private RandomGenerator rgen = RandomGenerator.getInstance();
 }
