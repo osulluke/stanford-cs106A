@@ -156,4 +156,23 @@ Lesson 11: More on graphics; Event-driven Programming
 	design of the program. Event-driven programs (asynchronus), don't proceed in this way. Events
 	can happen at any time, and the program then reacts/behaves appropriately.
 
-Lesson 12: 
+////////////////////////////////////////////////////////////////////////////////
+From the book:
+
+	- An interface (sounds really cool) is a construct that allows you to define
+	a set of methods that are shared by a certain subset of classes that may be part
+	of a class hierarchy. What this means is that I could implement an 'interface' that
+	would include methods that would allow me to define a behavior such as 'fillable' on
+	a set of objects for which that makes sense - for instance on circles and squares.
+	Other geometric objects (classes), like lines, or arcs, would not make sense to
+	have a method that would 'fill' them called on them, since they are one-dimensional,
+	and a 'fillable' attribute really only makes sense on something that is 2D or greater.
+	- Perhaps a different metaphor (to cement the concept from the book) is a 'bug'
+	superclass that included beetles, ants, snails, spiders, and scorpions. Using these
+	'classes', one could implement an 'interface' called 'bites' that would have
+	methods for dealing with spider bites, ant pites, and scorpion stings...beetles and
+	ants being the other 'classes' that don't really need methods for having 'bites'
+	since they are peaceful bugs.
+////////////////////////////////////////////////////////////////////////////////
+
+Lesson 12:
