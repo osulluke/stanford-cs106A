@@ -3,7 +3,7 @@
  * -------------------
  * Name:
  * Section Leader:
- * 
+ *
  * This file will eventually implement the game of Breakout.
  */
 
@@ -60,26 +60,33 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		setUpBricks();
-		addPaddle();
+		/* Add the mouse listeners for the paddle to move*/
+		addMouseListeners();
 		
+		setUpBricks();
+		paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
+		fixPaddle(paddle);
+
 		for (int lives = 0; lives < NTURNS; lives++) {
 			;
 		}
-		
+		label = new GLabel("Mouse pos: ");
+		label.setFont("Times New Roman-36");
+		add(label, 0, 250);
+
 		return;
 	}
-	
+
 	private void setUpBricks() {
-		
+
 		for (int j = 0; j < NBRICK_ROWS; j++) {
 			yPos = yPos + (BRICK_HEIGHT) + BRICK_SEP;
-			
+
 			if (j < 2) {
 				layBrickRow(Color.RED);
 			}
-			else if (j < 4) { 
-				layBrickRow(Color.ORANGE); 
+			else if (j < 4) {
+				layBrickRow(Color.ORANGE);
 				}
 			else if (j < 6) {
 				layBrickRow(Color.YELLOW); ;
@@ -91,16 +98,16 @@ public class Breakout extends GraphicsProgram {
 				layBrickRow(Color.CYAN); ;
 			}
 		}
-		
+
 		return;
 	}
-	
+
 	private void layBrickRow(Color c) {
 		/*
 		 * Add two rows of that color brick.
 		 */
 		for (int i = 0; i < NBRICKS_PER_ROW; i++) {
-			
+
 			/* Make a new brick.*/
 			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
 			brick.setFillColor(c);
@@ -109,27 +116,39 @@ public class Breakout extends GraphicsProgram {
 			/* Add a row of bricks*/
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
-		
-		return;
-	}
-	
-	private void addPaddle() {
-		
-		/* Add the mouse listeners for the paddle to move*/
-		addMouseListeners();
-		
-		/* Make the paddle and add to the game. */
-		GRect paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
-		paddle.setFillColor(Color.BLACK);
-		paddle.setFilled(true);
-		
-		/* Add paddle to game board. */
-		add(paddle, 45, HEIGHT - PADDLE_Y_OFFSET);
-		
+
 		return;
 	}
 
-	
+	private void fixPaddle(GRect p) {
+
+		/* Make the paddle and add to the game. */
+		//GRect paddle1 = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
+		p.setFillColor(Color.BLACK);
+		p.setFilled(true);
+
+		/* Add paddle to game board. */
+		add(p, WIDTH / 2, HEIGHT - PADDLE_Y_OFFSET);
+
+		return;
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		if (e.getX() < 0) {
+			paddle.setLocation(0, HEIGHT - PADDLE_Y_OFFSET);
+		}
+		else if (e.getX() + PADDLE_WIDTH > WIDTH) {
+			paddle.setLocation(WIDTH - PADDLE_WIDTH, HEIGHT - PADDLE_Y_OFFSET);
+		}
+		else {
+			paddle.setLocation(e.getX(), HEIGHT - PADDLE_Y_OFFSET);
+		}
+		label.setLabel("Mouse: (" + e.getX() + ", " + e.getY() + ")");
+		return;
+	}
+
+	private static GRect paddle;
+	private static GLabel label;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
 }
