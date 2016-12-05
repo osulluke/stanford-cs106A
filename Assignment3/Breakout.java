@@ -112,7 +112,7 @@ public class Breakout extends GraphicsProgram {
 			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
 			brick.setFillColor(c);
 			brick.setColor(c);
-			brick.setFilled(true);
+			//brick.setFilled(rgen.nextBoolean(.65));
 			/* Add a row of bricks*/
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
@@ -147,6 +147,7 @@ public class Breakout extends GraphicsProgram {
 		return;
 	}
 
+	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private static GRect paddle;
 	private static GLabel label;
 	private static int xPos = 0;
