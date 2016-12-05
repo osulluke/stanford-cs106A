@@ -62,14 +62,24 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		/* Add the mouse listeners for the paddle to move*/
 		addMouseListeners();
-		
+		/* Add all the rows of bricks to the world.*/
 		setUpBricks();
+		
+		/*
+		 * Make the paddle and then apply the fixPaddle()
+		 * function to fill it in and add it to the middle
+		 * of the board. */
 		paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
 		fixPaddle(paddle);
 
+		/* Begin gameplay; you have three lives/turns, after 
+		 * which, gameplay ends. */
 		for (int lives = 0; lives < NTURNS; lives++) {
 			;
 		}
+		
+		/* 'label' code below is purely for testing and 
+		 * should be removed after the game is complete. */
 		label = new GLabel("Mouse pos: ");
 		label.setFont("Times New Roman-36");
 		add(label, 0, 250);
@@ -78,7 +88,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void setUpBricks() {
-
+		/* Loop through each of the number of rows changing
+		 * the color after every second row. */
 		for (int j = 0; j < NBRICK_ROWS; j++) {
 			yPos = yPos + (BRICK_HEIGHT) + BRICK_SEP;
 
@@ -103,17 +114,16 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void layBrickRow(Color c) {
-		/*
-		 * Add two rows of that color brick.
-		 */
+		/* Add two rows of that color brick. */
 		for (int i = 0; i < NBRICKS_PER_ROW; i++) {
 
 			/* Make a new brick.*/
 			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
 			brick.setFillColor(c);
 			brick.setColor(c);
+			
 			//brick.setFilled(rgen.nextBoolean(.65));
-			/* Add a row of bricks*/
+			/* Add a row of bricks. */
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
 
@@ -134,6 +144,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
+		
+		/* Cascading 'if' statement makes sure to keep
+		 * the paddle within the boundaries of the game board. */
 		if (e.getX() < 0) {
 			paddle.setLocation(0, HEIGHT - PADDLE_Y_OFFSET);
 		}
@@ -143,10 +156,15 @@ public class Breakout extends GraphicsProgram {
 		else {
 			paddle.setLocation(e.getX(), HEIGHT - PADDLE_Y_OFFSET);
 		}
+		
+		/* label code below is for testing only, and should be removed
+		 * after the game is complete. */
 		label.setLabel("Mouse: (" + e.getX() + ", " + e.getY() + ")");
 		return;
 	}
 
+	/* Private (game) instance variables for the paddle, and brick positioning
+	 * and station-keeping. */
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private static GRect paddle;
 	private static GLabel label;
