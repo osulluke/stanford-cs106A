@@ -59,11 +59,10 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 
 /** Initial Y velocity (+ is downward) */
-	private static final double Y_VEL = 3.0;
+	private static final double Y_VEL = 5.0;
 
 /** Runs the Breakout program. */
 	public void run() {
-		
 		/* Add the mouse listeners for the paddle to move*/
 		addMouseListeners();
 		
@@ -83,8 +82,10 @@ public class Breakout extends GraphicsProgram {
 			ball = makeBall();
 			add(ball);
 			play();
+			if(numHits == youWon) {break;}
 		}
 
+		/* After your three lives/turns, it's game over. */
 		gameOver();
 
 		return;
@@ -124,8 +125,8 @@ public class Breakout extends GraphicsProgram {
 			GRect brick = new GRect(BRICK_WIDTH, BRICK_HEIGHT);
 			brick.setFillColor(c);
 			brick.setColor(c);
-
-			brick.setFilled(rgen.nextBoolean(.05));
+			brick.setFilled(rgen.nextBoolean(1));
+			
 			/* Add a row of bricks. */
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
@@ -134,7 +135,6 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void fixPaddle(GRect p) {
-
 		/* Adjust the paddle properties and add to the game. */
 		p.setFillColor(Color.BLACK);
 		p.setFilled(true);
@@ -146,7 +146,6 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-
 		/* Cascading 'if' statement makes sure to keep
 		 * the paddle within the boundaries of the game board. */
 		if (e.getX() < 0) {
@@ -179,69 +178,99 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void play() {
-
+		/* Don't start the game until there is a click from the user.*/
 		waitForClick();
 
-		vx = rgen.nextDouble(2.0, 12.0);
+		/* Initialize a new, random x velocity and send the ball downward. */
+		vx = rgen.nextDouble(2.0, 7.0);
 		vy = Y_VEL;
+		
+		/* Every time the ball starts, make it go left or right 50/50. */
 		if (rgen.nextBoolean(0.5)) {
 			vx = -vx;
 		}
 
+		/* Start the ball moving and check for collisions. If there is no 
+		 * collision that returns 'true' continue to move the ball. */
 		while(!checkCollision()) {
 			ball.move(vx, vy);
-			pause(5);
+			pause(25);
+			
+			/**/
+			if(numHits == youWon) {break;}
 		}
+		
+		/* After a collision that returns true, remove pause momentarily, 
+		 * and then remove the ball. */
+		pause(1000);
 		removeBall(ball);
+		
 		return;
 	}
 
 	private boolean checkCollision() {
-
-		collided = checkWallCollisions();
+		/* The ball can collide with basically three 
+		 * different entities, the paddle, a brick, or a wall.
+		 * Test for each of these cases. */
 		collided = checkPaddleCollision();
 		collided = checkBrickCollision();
+		collided = checkWallCollisions();
 
 		return collided;
 	}
 
 	private boolean checkWallCollisions() {
-
+		/* Need to have a variable to tell if it hit or not. */
+		boolean hit = false;
+		
 		/* Check if ball hits bottom wall. Eventually
 		 * this will need to return true to signify the
 		 * end of a turn. */
-		if (ball.getY() - BALL_RADIUS >= HEIGHT) {
+		if (ball.getY() + BALL_RADIUS >= HEIGHT) {
 			vy = -vy;
-			return true;
+			hit = true;
+			return hit;
 		}
+		
 		/* Check if ball hits top of wall. */
 		if (ball.getY() <= 0) {
 			vy = -vy;
-			return false;
+			return hit;
 		}
+		
 		/* Check if ball hits left edge. */
 		if (ball.getX() <= 0) {
 			vx = -vx;
-			return false;
+			return hit;
 		}
+		
 		/* Check if ball hits right edge. */
 		if (ball.getX() + BALL_RADIUS >= WIDTH) {
-			vx = -vx;
-			return false;
+			vx = -vx * 1.1;
+			return hit;
 		}
-
-		return false;
+		
+		return hit;
 	}
 
 	private boolean checkPaddleCollision() {
+		/* Get the boundaries of the ball. */
 		double ballX = ball.getX();
 		double ballY = ball.getY();
+		
+		/* Get the left and right boundaries of the paddle. */
 		double padLeft = paddle.getX();
 		double padRight = padLeft + PADDLE_WIDTH;
-
+		
+		/* Create two logical testers to see if any part of the ball is 
+		 * touching any part of the paddle. */
 		boolean withinX = (ballX >= padLeft && ballX <= padRight);
 		boolean withinY = (ballY <= HEIGHT - PADDLE_Y_OFFSET && ballY >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
 
+		/* If the ball is touching the paddle in both the X and Y dimension
+		 * then reverse it's y velocity and give it a new random x velocity. 
+		 * Here is also where the noise is supposed to play, but it's not for 
+		 * some unknown reason. */
 		if (withinX && withinY) {
 			vy = -vy;
 			vx = rgen.nextDouble(0.0, vy);
@@ -277,6 +306,9 @@ public class Breakout extends GraphicsProgram {
 				remove(crasher);
 				vx = rgen.nextDouble(0.0, vy);
 				vy = -vy;
+				
+				/* Increment the 'winner' tracker. */
+				numHits++;
 			} 
 		}
 
@@ -306,16 +338,31 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void removeBall(GOval b) {
+		/* Remove the ball from the board. */
 		remove(b);
+		
 		return;
 	}
 
 	private void gameOver() {
-		gameOver = new GLabel("Game Over");
-		gameOver.setFont("Times New Roman-24");
-		add(gameOver, WIDTH / 2, HEIGHT / 2);
+		/* Check to see if you won and make and add it to the canvas. */
+		if(youWon == numHits) {
+			vx = vy = 0;
+			gameOver = new GLabel("You Won!!");
+			gameOver.setFont("Times New Roman-50");
+			gameOver.setColor(Color.GREEN);
+			add(gameOver, ( WIDTH - gameOver.getWidth() ) / 2, HEIGHT / 2);
+		}
+		else {
+			gameOver = new GLabel("Game Over");
+			gameOver.setFont("Times New Roman-50");
+			gameOver.setColor(Color.RED);
+			add(gameOver, ( WIDTH - gameOver.getWidth() ) / 2, HEIGHT / 2);
+		}
+
+		/* After a final click exit the game. */
 		waitForClick();
-		remove(gameOver);
+		exit();
 
 		return;
 	}
@@ -331,5 +378,7 @@ public class Breakout extends GraphicsProgram {
 	private static GObject crasher;
 	private static int xPos = 0;
 	private static int yPos = BRICK_Y_OFFSET;
-	private AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
+	private static int youWon = NBRICKS_PER_ROW * NBRICK_ROWS;
+	private static int numHits = 0;
+	AudioClip bounceNoise = MediaTools.loadAudioClip("bounce.au");
 }
