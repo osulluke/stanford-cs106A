@@ -181,4 +181,10 @@ Lesson 12: Enumerations, strings, immutable types.
 	and some specific differences related to reading characters or strings as well as
 	calling methods on them or passing messages to them.
 
-Lesson 13: 
+Lesson 13: Strings, tokenizers, encryption (simple).
+
+	- Nothing too ground-breaking here, except for the use of the Tokenizer class
+	that is included with the Java language...which is really neat and useful for a
+	program like the news splicer or gatherer.
+
+Lesson 14: 
