@@ -60,11 +60,13 @@ public class Breakout extends GraphicsProgram {
 
 /** Initial Y velocity (+ is downward) */
 	private static final double Y_VEL = 3.0;
-/* Method: run() */
+
 /** Runs the Breakout program. */
 	public void run() {
+		
 		/* Add the mouse listeners for the paddle to move*/
 		addMouseListeners();
+		
 		/* Add all the rows of bricks to the world.*/
 		setUpBricks();
 
@@ -84,11 +86,6 @@ public class Breakout extends GraphicsProgram {
 		}
 
 		gameOver();
-		/* 'label' code below is purely for testing and
-		 * should be removed after the game is complete. */
-		label = new GLabel("Mouse pos: ");
-		label.setFont("Times New Roman-36");
-		//add(label, 0, 250);
 
 		return;
 	}
@@ -128,7 +125,7 @@ public class Breakout extends GraphicsProgram {
 			brick.setFillColor(c);
 			brick.setColor(c);
 
-			brick.setFilled(rgen.nextBoolean(1.0));
+			brick.setFilled(rgen.nextBoolean(.05));
 			/* Add a row of bricks. */
 			add(brick , xPos + i*BRICK_WIDTH + (i+1)*BRICK_SEP, yPos);
 		}
@@ -138,8 +135,7 @@ public class Breakout extends GraphicsProgram {
 
 	private void fixPaddle(GRect p) {
 
-		/* Make the paddle and add to the game. */
-		//GRect paddle1 = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
+		/* Adjust the paddle properties and add to the game. */
 		p.setFillColor(Color.BLACK);
 		p.setFilled(true);
 
@@ -163,17 +159,10 @@ public class Breakout extends GraphicsProgram {
 			paddle.setLocation(e.getX(), HEIGHT - PADDLE_Y_OFFSET);
 		}
 
-		/* label code below is for testing only, and should be removed
-		 * after the game is complete. */
-		//label.setLabel("Mouse: (" + e.getX() + ", " + e.getY() + ")");
 		return;
 	}
 
 	public void mouseClicked(MouseEvent e) {
-
-		clickWait = new GLabel("Mouse click.");
-		clickWait.setFont("Times New Roman-36");
-		add(clickWait, 0, 650);
 
 		return;
 	}
@@ -193,7 +182,7 @@ public class Breakout extends GraphicsProgram {
 
 		waitForClick();
 
-		vx = rgen.nextDouble(1.0, 3.0);
+		vx = rgen.nextDouble(2.0, 12.0);
 		vy = Y_VEL;
 		if (rgen.nextBoolean(0.5)) {
 			vx = -vx;
@@ -201,7 +190,7 @@ public class Breakout extends GraphicsProgram {
 
 		while(!checkCollision()) {
 			ball.move(vx, vy);
-			pause(25);
+			pause(5);
 		}
 		removeBall(ball);
 		return;
@@ -269,9 +258,27 @@ public class Breakout extends GraphicsProgram {
 		/* First, find the brick that the ball collides with.*/
 		crasher = getCollidingBrick();
 
-		/* Next, determine what to do with that brick.*/
+		/* Next, determine what to do with the object.*/
 		if( crasher == null ) {return false;}
-		else { remove(crasher); }
+		if( crasher == paddle ) {return false;}
+		
+		/* Not a label, paddle, or otherwise (i.e. it's a brick?). 
+		 * This is where the real behavior of the 'game' lives...
+		 * i.e. it's where what happens when the ball hits a brick
+		 * lives. */
+		else {
+			GRect fullBrick = (GRect) crasher;
+			if ( fullBrick.isFilled() ) {
+				fullBrick.setFilled(false);
+				vx = rgen.nextDouble(0.0, vy);
+				vy = -vy;
+			}
+			else if( !fullBrick.isFilled() ) {
+				remove(crasher);
+				vx = rgen.nextDouble(0.0, vy);
+				vy = -vy;
+			} 
+		}
 
 		return false;
 	}
@@ -319,8 +326,6 @@ public class Breakout extends GraphicsProgram {
 	private static GRect paddle;
 	private static GOval ball;
 	private static double vx, vy;
-	private static GLabel label;
-	private static GLabel clickWait;
 	private static GLabel gameOver;
 	private static boolean collided = false;
 	private static GObject crasher;
