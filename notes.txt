@@ -187,4 +187,23 @@ Lesson 13: Strings, tokenizers, encryption (simple).
 	that is included with the Java language...which is really neat and useful for a
 	program like the news splicer or gatherer.
 
-Lesson 14: 
+Lesson 14: Memory (Heap + Stack), pointers, addresses.
+
+	- This lecture is probably the best single instance of a class that covers what
+	is going on with the basic internals of a computer memory system when a program
+	is operating. It basically covers a lot of the abstractions that are talked about
+	in an assembly language class.
+
+	- Covered in detail what happens with a statement like this:
+				Point p1 = new Point(x, y);
+
+		The call of 'new' initially sets aside memory on the heap, the call of the
+		constructor Point(x, y) is pushed onto the stack, and then uses the memory
+		set aside on the heap to fill in the internal values of any instance variables
+		that the calling object requires. Last but not least, this new object's
+		address (pointer)/location in memory is returned and assigned (by the '=') to
+		the variable p1, which lives on the stack. Hence, the constructors, which have
+		no return type, actually return the address of the object which was just
+		created on the heap.
+
+Lesson 15:
