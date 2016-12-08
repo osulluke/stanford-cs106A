@@ -206,4 +206,8 @@ Lesson 14: Memory (Heap + Stack), pointers, addresses.
 		no return type, actually return the address of the object which was just
 		created on the heap.
 
-Lesson 15:
+Lesson 15: Reading and Writing files.
+
+	- Good review of pointers and references.
+	- Covers reading and writing files, as well as objects that support those
+	operations. The book, chapter 12.4 does a good job explaining all this as well. 
