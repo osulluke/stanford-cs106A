@@ -210,4 +210,21 @@ Lesson 15: Reading and Writing files.
 
 	- Good review of pointers and references.
 	- Covers reading and writing files, as well as objects that support those
-	operations. The book, chapter 12.4 does a good job explaining all this as well. 
+	operations. The book, chapter 12.4 does a good job explaining all this as well.
+	- Java provides a variety of classes that open and read files; there is also a
+	good section about the 'try/catch' block that covers handling exceptions when
+	they occur in your program. This is the first introduction I've had to exceptions
+	and it is definitely an important part of modern programming. Mehran indicates that
+	they are placed in sections of your program where "messy" things can happen:
+	such as trying to read a file on disk that isn't there.
+	- Exceptions must be 'caught' because they will continue to be passed up the
+	stack until there is something that knows how to handle it, and take a new action
+	within the program.
+	- File access is something that should always be placed inside a 'try/catch'
+	block.
+	- Any exception stops execution of the current 'try' statement, and then begins
+	looking for a catch statement.
+	- While 'reading from' a file, you should also encapsulate that in a try/catch,
+	just incase something happens while reading the file; the same is true after you
+	are done with the file and try to close it...
+	- Writing to files occurs in a similar fashion to reading. Same basic pattern.
