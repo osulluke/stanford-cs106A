@@ -19,6 +19,11 @@ public class Hangman extends ConsoleProgram {
       welcomeToHangman();
 		/* Part 1 - playing an interactive game
      */
+     //Here is the main game loop.
+     while(playAgain()) {
+       initialzeGame();
+
+     }
 
     /* Part 2 - implementing the graphics
      */
@@ -34,14 +39,22 @@ public class Hangman extends ConsoleProgram {
     return;
   }
 
+  public void initialzeGame() {
+    secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
+    println("The secretWord is " + secretWord);
+  }
+
   public char getNewGuess() {
 
     return 'a';
   }
 
-  
+  public boolean playAgain() {
+    return rgen.nextBoolean(.93);
+  }
+
   public void testLex() {
-	  
+
 	  println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
 	  for(int i=0; i<wordList.getWordCount(); i++) {
 		  println(wordList.getWord(i));
@@ -54,4 +67,6 @@ public class Hangman extends ConsoleProgram {
     */
   //private static String[] wordList = new String[10];
   private HangmanLexicon wordList = null;
+  private String secretWord = null;
+  private RandomGenerator rgen = RandomGenerator.getInstance();
 }
