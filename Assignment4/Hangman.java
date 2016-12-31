@@ -30,7 +30,7 @@ public class Hangman extends ConsoleProgram {
   public void welcomeToHangman() {
     println("Welcome to Hangman!\nThe rules are just what you think!");
     wordList = new HangmanLexicon();
-
+    testLex();
     return;
   }
 
@@ -39,6 +39,15 @@ public class Hangman extends ConsoleProgram {
     return 'a';
   }
 
+  
+  public void testLex() {
+	  
+	  println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
+	  for(int i=0; i<wordList.getWordCount(); i++) {
+		  println(wordList.getWord(i));
+	  }
+	  return;
+  }
   /* Private (game) instance variables:
     Includes:
     - wordList: contains all words for the hangman game (not yet needed).

@@ -6,6 +6,7 @@
  */
 
 import acm.util.*;
+import acm.program.*;
 
 public class HangmanLexicon {
 
@@ -29,5 +30,5 @@ public class HangmanLexicon {
 			case 9: return "ZIRCON";
 			default: throw new ErrorException("getWord: Illegal index");
 		}
-	};
+	}
 }
