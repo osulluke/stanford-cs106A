@@ -228,3 +228,17 @@ Lesson 15: Reading and Writing files.
 	just incase something happens while reading the file; the same is true after you
 	are done with the file and try to close it...
 	- Writing to files occurs in a similar fashion to reading. Same basic pattern.
+
+Lesson 16: Arrays; array lists
+
+	- Syntax for creating arrays: int[] arr = new int[5];
+	- How the '++' operator actually works: it's a method that returns a value. It 
+	can be used either in 'pre' or 'post' fix form.
+	- All arrays carry around with them their length (arr.length); it does not have
+	the '()' following it as a string variable would, since it's not a method call.
+	- Arrays (like objects, unlike primitive types) are passed by reference - meaning
+	that if you want to operate on an array (or array elements), you need to pass
+	the 'whole' array (i.e. a reference to it).
+
+
+Lesson 17:
