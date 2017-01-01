@@ -47,24 +47,46 @@ public class Hangman extends ConsoleProgram {
 
   public void playGame() {
 	  int i = 0;
+
 	  while(i < numberGuesses) {
 		  guessesLeft(numberGuesses - i);
+
 		  if(testGuess(getNewGuess())) {
-			  ;
+			  String test = String.valueOf(guessWord);
+			  if(test.compareTo(secretWord) == 0) {
+				  youWin();
+				  break;
+			  }
 		  }
 		  else {
 			  i++;
+			  if(i == numberGuesses) {
+				  youLose();
+				  break;
+			  }
 		  }
 	      println("Your word looks like this: " + String.valueOf(guessWord));
 	  }
+  }
+
+  public void youWin() {
+	  println("You win.");
+
+	  return;
+  }
+
+  public void youLose() {
+	  println("You lose.");
+
+	  return;
   }
 
   public char getNewGuess() {
       char guess;
 
       print("Enter your guess: ");
-	  guess = convertGuess(readLine().charAt(0));
-	  println("You guessed " + guess );
+	    guess = convertGuess(readLine().charAt(0));
+	    println("You guessed " + guess );
 
       return guess;
   }
@@ -111,7 +133,7 @@ public class Hangman extends ConsoleProgram {
 	  }
 	  return;
   }
-  
+
   /* Private (game) instance variables:
     Includes:
     - wordList: contains all words for the hangman game (not yet needed).
