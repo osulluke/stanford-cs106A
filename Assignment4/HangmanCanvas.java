@@ -11,6 +11,10 @@ public class HangmanCanvas extends GCanvas {
 /** Resets the display so that only the scaffold appears */
 	public void reset() {
 		/* You fill this in */
+		removeAll();
+		addScaffold();
+		
+		return;
 	}
 
 /**
@@ -29,9 +33,74 @@ public class HangmanCanvas extends GCanvas {
  * guesses that appears at the bottom of the window.
  */
 	public void noteIncorrectGuess(char letter) {
-		/* You fill this in */
+		
+		addBodyPart(numParts++);
+		
+		return;
 	}
 
+	private void addScaffold() {
+		vertBeam = new GLine(xCoord, yCoord, xCoord, yCoord + SCAFFOLD_HEIGHT);
+		horzBeam = new GLine(xCoord, yCoord, xCoord + BEAM_LENGTH, yCoord);
+		rope = new GLine(xCoord + BEAM_LENGTH, yCoord, xCoord + BEAM_LENGTH, yCoord + ROPE_LENGTH);
+		
+		add(vertBeam);
+		add(horzBeam);
+		add(rope);
+		
+		return;
+	}
+	
+	private void addHead() {
+		GOval head = new GOval(xCoord + BEAM_LENGTH - HEAD_RADIUS / 2, 
+				yCoord + ROPE_LENGTH, HEAD_RADIUS, HEAD_RADIUS);
+		add(head);
+		
+		return;
+	}
+	
+	private void addBody() {
+		GLine body = new GLine(xCoord + BEAM_LENGTH, 
+				yCoord + ROPE_LENGTH + HEAD_RADIUS, 
+				xCoord + BEAM_LENGTH, 
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
+		add(body);
+		
+		return;
+	}
+	
+	private void addArms() {
+		GLine arms = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2, 
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
+				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD);
+		add(arms);
+		
+		return;
+	}
+	
+	private void addBodyPart(int i) {
+		if (i == 0) {
+			addHead();
+		}
+		else if (i == 1) {
+			addBody();
+		}
+		else if (i == 2) {
+			addArms();
+		}
+		
+		return;
+	}
+	
+	/*My constants */
+	private static GLine vertBeam;
+	private static GLine horzBeam;
+	private static GLine rope;
+	private static int xCoord = 50;
+	private static int yCoord = 15;
+	private static int numParts = 0;
+	
 /* Constants for the simple version of the picture (in pixels) */
 	private static final int SCAFFOLD_HEIGHT = 360;
 	private static final int BEAM_LENGTH = 144;
