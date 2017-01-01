@@ -155,7 +155,7 @@ public class Hangman extends ConsoleProgram {
 
 	//This whole function is test code...should be replaced with a user choice.
 	private boolean playAgain() {
-		return rgen.nextBoolean(.13);
+		return rgen.nextBoolean(.93);
 	}
 
 	//This code will convert a lowercase or uppercase letter to uppercase.

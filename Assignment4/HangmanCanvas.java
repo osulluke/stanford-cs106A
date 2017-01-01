@@ -11,9 +11,12 @@ public class HangmanCanvas extends GCanvas {
 /** Resets the display so that only the scaffold appears */
 	public void reset() {
 		/* You fill this in */
+		numParts = 0;
 		removeAll();
 		addScaffold();
-		
+		add(label);
+		label.setFont("SansSerif-bold-24");
+				
 		return;
 	}
 
@@ -23,7 +26,9 @@ public class HangmanCanvas extends GCanvas {
  * been guessed so far; unguessed letters are indicated by hyphens.
  */
 	public void displayWord(String word) {
-		/* You fill this in */
+		label.setLabel(word);
+		
+		return;
 	}
 
 /**
@@ -178,14 +183,6 @@ public class HangmanCanvas extends GCanvas {
 		return;
 	}
 	
-	/*My constants */
-	private static GLine vertBeam;
-	private static GLine horzBeam;
-	private static GLine rope;
-	private static int xCoord = 50;
-	private static int yCoord = 15;
-	private static int numParts = 0;
-	
 /* Constants for the simple version of the picture (in pixels) */
 	private static final int SCAFFOLD_HEIGHT = 360;
 	private static final int BEAM_LENGTH = 144;
@@ -199,4 +196,14 @@ public class HangmanCanvas extends GCanvas {
 	private static final int LEG_LENGTH = 108;
 	private static final int FOOT_LENGTH = 18;
 
+	/*My constants */
+	private static GLine vertBeam;
+	private static GLine horzBeam;
+	private static GLine rope;
+	private static int xCoord = 50;
+	private static int yCoord = 15;
+	private static int numParts = 0;
+	private static int xLabel = xCoord;
+	private static int yLabel = yCoord + SCAFFOLD_HEIGHT + 20;
+	private static GLabel label = new GLabel("", xLabel, yLabel);
 }
