@@ -42,6 +42,9 @@ public class Hangman extends ConsoleProgram {
 	}
 
 	public void initializeGame() {
+		//Initialize the canvas
+		init();
+		
 		//Select a random word from the lexicon.
 		secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
 		
@@ -159,6 +162,14 @@ public class Hangman extends ConsoleProgram {
 		return g;
 	}
 
+	//This code initializes the hangman canvas.
+	public void init() {
+		canvas = new HangmanCanvas();
+		add(canvas);
+		
+		return;
+	}
+	
 	//This is test code, and will eventually be deleted.
 	public void testLex() {
 
@@ -177,6 +188,7 @@ public class Hangman extends ConsoleProgram {
     - secretWord: the word that the program will select randomly.
     - guessWord: the word that the player will fill with guesses.
     - rgen: a random generator.
+    - canvas: the graphical hangman display canvas.
 	 */
 	//private static String[] wordList = new String[10];
 	private int numberGuesses = 8;
@@ -184,4 +196,5 @@ public class Hangman extends ConsoleProgram {
 	private String secretWord = null;
 	private char[] guessWord;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
+	private HangmanCanvas canvas;
 }
