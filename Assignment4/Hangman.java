@@ -96,11 +96,20 @@ public class Hangman extends ConsoleProgram {
 	}
 
 	public char getNewGuess() {
-		char guess;
-		print("Enter your guess: ");
-
+		char guess = '-';
+		String line;
+		
 		//Get a guess from the player, and convert it to the capital version.
-		guess = convertGuess(readLine().charAt(0));
+		print("Enter your guess: ");
+		line = readLine();
+		
+		if(line.length() > 1) {
+			println("Ooops, pick only one letter!");
+		}
+
+		else {
+			guess = convertGuess(line.charAt(0));
+		}
 		println("Your guess: " + guess );
 
 		return guess;
@@ -109,6 +118,9 @@ public class Hangman extends ConsoleProgram {
 	public boolean testGuess(char c) {
 		boolean letterTest = false;
 
+		if (c == '-') {
+			letterTest = true;
+		}
 		//Loop through each letter of the word, compare to your guess, and update accordingly.
 		for(int i = 0; i<secretWord.length(); i++) {
 			if (c == secretWord.charAt(i)) {
@@ -117,7 +129,7 @@ public class Hangman extends ConsoleProgram {
 				letterTest = true;
 			}
 		}
-
+		
 		return letterTest;
 	}
 
@@ -134,7 +146,7 @@ public class Hangman extends ConsoleProgram {
 
 	//This code will convert a lowercase or uppercase letter to uppercase.
 	public char convertGuess(char g) {
-		if(g >= 'A' && g <= 'Z') {
+		if(g >= 'A' && g <= 'Z' || g == '-') {
 			return g;
 		}
 		else if (g >= 'a' && g <= 'z') {
