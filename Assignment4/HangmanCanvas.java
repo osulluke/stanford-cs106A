@@ -79,6 +79,76 @@ public class HangmanCanvas extends GCanvas {
 		return;
 	}
 	
+	private void addHands() {
+		GLine rHand;
+		GLine lHand;
+		
+		rHand = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2, 
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
+				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
+		
+		lHand = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH, 
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
+				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
+		
+		add(rHand);
+		add(lHand);
+				
+		return;
+	}
+	
+	private void addHips() {
+		GLine hips = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
+				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
+		add(hips);
+		
+		return;
+	}
+	
+	private void addRleg() {
+		GLine rLeg = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
+				xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		add(rLeg);
+		
+		return;
+	}
+	
+	private void addLleg() {
+		GLine lLeg = new GLine(xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
+				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		add(lLeg);
+		
+		return;
+	}
+	
+	private void addFeet() {
+		GLine rFoot;
+		GLine lFoot;
+		
+		rFoot = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH,
+				xCoord + BEAM_LENGTH - HIP_WIDTH / 2 - FOOT_LENGTH,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		
+		lFoot = new GLine(xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH,
+				xCoord + BEAM_LENGTH + HIP_WIDTH / 2 + FOOT_LENGTH,
+				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		
+		add(rFoot);
+		add(lFoot);
+		
+		return;
+	}
+	
 	private void addBodyPart(int i) {
 		if (i == 0) {
 			addHead();
@@ -88,6 +158,21 @@ public class HangmanCanvas extends GCanvas {
 		}
 		else if (i == 2) {
 			addArms();
+		}
+		else if (i == 3) {
+			addHands();
+		}
+		else if (i == 4) {
+			addHips();
+		}
+		else if (i == 5) {
+			addRleg();
+		}
+		else if (i == 6) {
+			addLleg();
+		}
+		else {
+			addFeet();
 		}
 		
 		return;
@@ -110,8 +195,8 @@ public class HangmanCanvas extends GCanvas {
 	private static final int ARM_OFFSET_FROM_HEAD = 28;
 	private static final int UPPER_ARM_LENGTH = 72;
 	private static final int LOWER_ARM_LENGTH = 44;
-	private static final int HIP_WIDTH = 36;
+	private static final int HIP_WIDTH = 42;
 	private static final int LEG_LENGTH = 108;
-	private static final int FOOT_LENGTH = 28;
+	private static final int FOOT_LENGTH = 18;
 
 }
