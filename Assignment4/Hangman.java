@@ -28,7 +28,7 @@ public class Hangman extends ConsoleProgram {
 		return;
 	}
 
-	public void welcomeToHangman() {
+	private void welcomeToHangman() {
 		//Show welcome message.
 		println("Welcome to Hangman!\nThe rules are just what you think!");
 
@@ -41,7 +41,9 @@ public class Hangman extends ConsoleProgram {
 		return;
 	}
 
-	public void initializeGame() {
+	private void initializeGame() {
+		//Reset the game canvas.
+		canvas.reset();
 		
 		//Select a random word from the lexicon.
 		secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
@@ -57,7 +59,7 @@ public class Hangman extends ConsoleProgram {
 		return;
 	}
 
-	public void playGame() {
+	private void playGame() {
 		int i = 0;
 		
 		//Continue to run the game while player has guesses left.
@@ -89,14 +91,14 @@ public class Hangman extends ConsoleProgram {
 		return;
 	}
 
-	public void gameOver(String s) {
+	private void gameOver(String s) {
 		println("You " + s + "!");
 		println("The secret word was " + secretWord + "!\n");
 		
 		return;
 	}
 
-	public char getNewGuess() {
+	private char getNewGuess() {
 		char guess = '-';
 		String line;
 		
@@ -116,7 +118,7 @@ public class Hangman extends ConsoleProgram {
 		return guess;
 	}
 
-	public boolean testGuess(char c) {
+	private boolean testGuess(char c) {
 		boolean letterTest = false;
 
 		if (c == '-') {
@@ -134,19 +136,19 @@ public class Hangman extends ConsoleProgram {
 		return letterTest;
 	}
 
-	public void guessesLeft(int i) {
+	private void guessesLeft(int i) {
 		println("You have " + i + " guesses left.");
 		
 		return;
 	}
 
 	//This whole function is test code...should be replaced with a user choice.
-	public boolean playAgain() {
+	private boolean playAgain() {
 		return rgen.nextBoolean(.93);
 	}
 
 	//This code will convert a lowercase or uppercase letter to uppercase.
-	public char convertGuess(char g) {
+	private char convertGuess(char g) {
 		if(g >= 'A' && g <= 'Z' || g == '-') {
 			return g;
 		}
@@ -169,7 +171,7 @@ public class Hangman extends ConsoleProgram {
 	}
 	
 	//This is test code, and will eventually be deleted.
-	public void testLex() {
+	private void testLex() {
 
 		println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
 		for(int i=0; i<wordList.getWordCount(); i++) {
