@@ -53,6 +53,7 @@ public class Hangman extends ConsoleProgram {
 		for (int i = 0; i<secretWord.length(); i++) {
 			guessWord[i] = '-';
 		}
+		canvas.displayWord(String.valueOf(guessWord));
 		//Test code to show what the secret word is...
 		println("The secret word is " + secretWord);
 		
@@ -67,8 +68,10 @@ public class Hangman extends ConsoleProgram {
 			guessesLeft(numberGuesses - i);
 			println("Your word looks like this: " + String.valueOf(guessWord));
 
-			//Get a new guess, and test it for validity.
+			//GOOD GUESSES: Get a new guess, and test it for validity.
 			if(testGuess(getNewGuess())) {
+				//Update canvas word
+				canvas.displayWord(String.valueOf(guessWord));
 				
 				//Check for a win.
 				String test = String.valueOf(guessWord);
@@ -77,8 +80,11 @@ public class Hangman extends ConsoleProgram {
 					break;
 				}
 			}
-
+			
+			//BAD GUESSES
 			else {
+				//Update display with wrong guess, and draw body part.
+				canvas.noteIncorrectGuess(tempGuess);
 				//Wrong guess, increment guess counter, and check for a loss.
 				i++;
 				if(i == numberGuesses) {
@@ -110,8 +116,13 @@ public class Hangman extends ConsoleProgram {
 			println("Ooops, pick only one letter!");
 		}
 
+		else if (line.length() == 0) {
+			println("Ooops, you need to give at least one letter!");
+		}
+		
 		else {
 			guess = convertGuess(line.charAt(0));
+			tempGuess = guess;
 		}
 		println("Your guess: " + guess );
 
@@ -197,4 +208,5 @@ public class Hangman extends ConsoleProgram {
 	private char[] guessWord;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private HangmanCanvas canvas;
+	private char tempGuess = '-';
 }
