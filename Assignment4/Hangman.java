@@ -9,12 +9,12 @@ import acm.program.*;
 import acm.util.*;
 
 public class Hangman extends ConsoleProgram {
-
+	
 	public void run() {
 
 		/* Display welcome message, and initialize new wordlist*/
 		welcomeToHangman();
-
+		
 		/* Part 1 - playing an interactive game*/
 		while(playAgain()) {
 			initializeGame();
@@ -42,8 +42,6 @@ public class Hangman extends ConsoleProgram {
 	}
 
 	public void initializeGame() {
-		//Initialize the canvas
-		init();
 		
 		//Select a random word from the lexicon.
 		secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
