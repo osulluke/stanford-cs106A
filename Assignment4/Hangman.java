@@ -14,16 +14,15 @@ import java.awt.*;
 public class Hangman extends ConsoleProgram {
 
   public void run() {
-      /*Display welcome message, and initialize new wordlist.
-      */
-      welcomeToHangman();
+    /*Display welcome message, and initialize new wordlist.*/
+    welcomeToHangman();
 		/* Part 1 - playing an interactive game
      */
      //Here is the main game loop.
-     while(playAgain()) {
+    while(playAgain()) {
        initializeGame();
        playGame();
-     }
+    }
 
     /* Part 2 - implementing the graphics
      */
@@ -41,34 +40,45 @@ public class Hangman extends ConsoleProgram {
 
   public void initializeGame() {
     secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
+    guessWord = new char[secretWord.length()];
     println("The secret word is " + secretWord);
     return;
   }
- 
+
   public void playGame() {
 	  int i = 0;
 	  while(i < numberGuesses) {
 		  guessesLeft(numberGuesses - i);
-		  getNewGuess();
+		  testGuess(getNewGuess());
 		  i++;
 	  }
   }
-  
+
   public char getNewGuess() {
-	char guess;
-	
-	print("Enter your guess: ");
-	guess = convertGuess(readLine().charAt(0));
-	println("You guessed " + guess );
-	
-    return guess;
+      char guess;
+
+      print("Enter your guess: ");
+	    guess = convertGuess(readLine().charAt(0));
+	    println("You guessed " + guess );
+      println("Your word looks like this: " + guessWord.toString());
+
+      return guess;
+  }
+
+  public void testGuess(char c) {
+	  for(int i = 0; i<secretWord.length(); i++) {
+		  if (c == secretWord.charAt(i)) {
+			  guessWord[i] = c;
+		  }
+	  }
+      return;
   }
 
   public void guessesLeft(int i) {
 	  println("You have " + i + " guesses left.");
 	  return;
   }
-  
+
   public boolean playAgain() {
     return rgen.nextBoolean(.93);
   }
@@ -85,7 +95,7 @@ public class Hangman extends ConsoleProgram {
 	  }
 	  return g;
   }
-  
+
   public void testLex() {
 
 	  println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
@@ -102,5 +112,6 @@ public class Hangman extends ConsoleProgram {
   private int numberGuesses = 8;
   private HangmanLexicon wordList = null;
   private String secretWord = null;
+  private char[] guessWord;
   private RandomGenerator rgen = RandomGenerator.getInstance();
 }
