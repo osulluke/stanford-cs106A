@@ -58,9 +58,8 @@ public class Hangman extends ConsoleProgram {
       char guess;
 
       print("Enter your guess: ");
-	    guess = convertGuess(readLine().charAt(0));
-	    println("You guessed " + guess );
-      println("Your word looks like this: " + guessWord.toString());
+	  guess = convertGuess(readLine().charAt(0));
+	  println("You guessed " + guess );
 
       return guess;
   }
@@ -71,6 +70,7 @@ public class Hangman extends ConsoleProgram {
 			  guessWord[i] = c;
 		  }
 	  }
+      println("Your word looks like this: " + String.valueOf(guessWord));
       return;
   }
 
