@@ -5,79 +5,84 @@
  * Assignment #4.
  */
 
-import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
-
-import java.awt.*;
 
 public class Hangman extends ConsoleProgram {
 
   public void run() {
-    /*Display welcome message, and initialize new wordlist.*/
-    welcomeToHangman();
-		/* Part 1 - playing an interactive game
-     */
-     //Here is the main game loop.
-    while(playAgain()) {
-       initializeGame();
-       playGame();
-    }
+	  
+      /* Display welcome message, and initialize new wordlist*/
+      welcomeToHangman();
+    
+	  /* Part 1 - playing an interactive game*/
+      while(playAgain()) {
+    	  initializeGame();
+          playGame();
+      }
 
-    /* Part 2 - implementing the graphics
-     */
+      /* Part 2 - implementing the graphics*/
 
-    /* Part 3 - reading in a new list of many words
-    */
-	}
+      /* Part 3 - reading in a new list of many words*/
+  }
 
   public void welcomeToHangman() {
-    println("Welcome to Hangman!\nThe rules are just what you think!");
-    wordList = new HangmanLexicon();
-    testLex();
-    return;
+	  //Show welcome message.
+      println("Welcome to Hangman!\nThe rules are just what you think!");
+      
+      //Create new lexicon from other class.
+      wordList = new HangmanLexicon();
+      
+      //Test code that makes sure the other class is working.
+      testLex();
+      
+      return;
   }
 
   public void initializeGame() {
-    secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
-    guessWord = new char[secretWord.length()];
-    println("The secret word is " + secretWord);
-    return;
+	  //Select a random word from the lexicon.
+      secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
+      //Create and initialize a character array of blanks that is the same length as the word.
+      guessWord = new char[secretWord.length()];
+      for (int i = 0; i<secretWord.length(); i++) {
+    	  guessWord[i] = '-';
+      }
+      //Test code to show what the secret word is...
+      println("The secret word is " + secretWord);
+      return;
   }
 
   public void playGame() {
 	  int i = 0;
-
+	  //Continue to run the game while player has guesses left.
 	  while(i < numberGuesses) {
 		  guessesLeft(numberGuesses - i);
-
+	      println("Your word looks like this: " + String.valueOf(guessWord));
+	      
+	      //Get a new guess, and test it for validity.
 		  if(testGuess(getNewGuess())) {
+			  //Check for a win.
 			  String test = String.valueOf(guessWord);
 			  if(test.compareTo(secretWord) == 0) {
-				  youWin();
+				  gameOver("won");
 				  break;
 			  }
 		  }
+		  
 		  else {
+			  //Wrong guess, subtract a life, and check for a loss.
 			  i++;
 			  if(i == numberGuesses) {
-				  youLose();
+				  gameOver("lost");
 				  break;
 			  }
 		  }
-	      println("Your word looks like this: " + String.valueOf(guessWord));
 	  }
   }
 
-  public void youWin() {
-	  println("You win.");
-
-	  return;
-  }
-
-  public void youLose() {
-	  println("You lose.");
-
+  public void gameOver(String s) {
+	  println("You " + s + "!");
+	  println("The secret word was " + secretWord + "!\n");
 	  return;
   }
 
@@ -85,17 +90,20 @@ public class Hangman extends ConsoleProgram {
       char guess;
 
       print("Enter your guess: ");
-	    guess = convertGuess(readLine().charAt(0));
-	    println("You guessed " + guess );
+      //Get a guess from the player, and convert it to the capital version.
+	  guess = convertGuess(readLine().charAt(0));
+	  println("Your guess: " + guess );
 
       return guess;
   }
 
   public boolean testGuess(char c) {
 	  boolean letterTest = false;
+	  //Run through each letter of the word, compare to your guess, and change accordingly.
 	  for(int i = 0; i<secretWord.length(); i++) {
 		  if (c == secretWord.charAt(i)) {
 			  guessWord[i] = c;
+			  //Return true if it's a good guess.
 			  letterTest = true;
 		  }
 	  }
@@ -107,11 +115,13 @@ public class Hangman extends ConsoleProgram {
 	  println("You have " + i + " guesses left.");
 	  return;
   }
-
+  
+  //This whole function is test code...should be replaced with a user choice.
   public boolean playAgain() {
     return rgen.nextBoolean(.93);
   }
 
+  //This code will convert a lowercase or uppercase letter to uppercase.
   public char convertGuess(char g) {
 	  if(g >= 'A' && g <= 'Z') {
 		  return g;
@@ -125,6 +135,7 @@ public class Hangman extends ConsoleProgram {
 	  return g;
   }
 
+  //This is test code, and will eventually be deleted.
   public void testLex() {
 
 	  println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
