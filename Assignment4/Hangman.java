@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class Hangman extends ConsoleProgram {
 
-    public void run() {
+  public void run() {
       /*Display welcome message, and initialize new wordlist.
       */
       welcomeToHangman();
@@ -21,8 +21,8 @@ public class Hangman extends ConsoleProgram {
      */
      //Here is the main game loop.
      while(playAgain()) {
-       initialzeGame();
-
+       initializeGame();
+       playGame();
      }
 
     /* Part 2 - implementing the graphics
@@ -39,20 +39,53 @@ public class Hangman extends ConsoleProgram {
     return;
   }
 
-  public void initialzeGame() {
+  public void initializeGame() {
     secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
-    println("The secretWord is " + secretWord);
+    println("The secret word is " + secretWord);
+    return;
   }
-
+ 
+  public void playGame() {
+	  int i = 0;
+	  while(i < numberGuesses) {
+		  guessesLeft(numberGuesses - i);
+		  getNewGuess();
+		  i++;
+	  }
+  }
+  
   public char getNewGuess() {
-
-    return 'a';
+	char guess;
+	
+	print("Enter your guess: ");
+	guess = convertGuess(readLine().charAt(0));
+	println("You guessed " + guess );
+	
+    return guess;
   }
 
+  public void guessesLeft(int i) {
+	  println("You have " + i + " guesses left.");
+	  return;
+  }
+  
   public boolean playAgain() {
     return rgen.nextBoolean(.93);
   }
 
+  public char convertGuess(char g) {
+	  if(g >= 'A' && g <= 'Z') {
+		  return g;
+	  }
+	  else if (g >= 'a' && g <= 'z') {
+		  g = (char) (g - 'a' + 'A');
+	  }
+	  else {
+		  println("Ooops! Not a valid guess :/");
+	  }
+	  return g;
+  }
+  
   public void testLex() {
 
 	  println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
@@ -66,6 +99,7 @@ public class Hangman extends ConsoleProgram {
     - wordList: contains all words for the hangman game (not yet needed).
     */
   //private static String[] wordList = new String[10];
+  private int numberGuesses = 8;
   private HangmanLexicon wordList = null;
   private String secretWord = null;
   private RandomGenerator rgen = RandomGenerator.getInstance();
