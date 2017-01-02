@@ -232,7 +232,7 @@ Lesson 15: Reading and Writing files.
 Lesson 16: Arrays; array lists
 
 	- Syntax for creating arrays: int[] arr = new int[5];
-	- How the '++' operator actually works: it's a method that returns a value. It 
+	- How the '++' operator actually works: it's a method that returns a value. It
 	can be used either in 'pre' or 'post' fix form.
 	- All arrays carry around with them their length (arr.length); it does not have
 	the '()' following it as a string variable would, since it's not a method call.
@@ -240,5 +240,16 @@ Lesson 16: Arrays; array lists
 	that if you want to operate on an array (or array elements), you need to pass
 	the 'whole' array (i.e. a reference to it).
 
+Lesson 17: Multidimensional arrays and more on array lists.
 
-Lesson 17:
+	- Multidimensional arrays [][]..."arrays of arrays..." int[][] array = new int[2][3];
+	- Uses nested for loops to populate with values.
+	- Array lists can change their size 'dynamically'. Array lists' actual size and
+	effective size are the 'same'...unlike basic arrays whose effective size might be
+	less than the actual size (i.e. if you're using less of it than you have allocated).
+	- What is a template?
+	- ArrayList can ONLY hold objects - not primitive types; hence, the reason for the
+	Integer, Character, Double, and Boolean "wrapper" classes.
+	- Java 5.0 does the 'boxing' and 'unboxing' work for you behind the scenes, saving
+	you from having to call additional methods on objects or primitive types depending
+	on which 'way' you were going...
