@@ -6,21 +6,20 @@
  */
 
 import acm.util.*;
-import acm.program.*;
 import java.io.*;
 import java.util.*;
 
 public class HangmanLexicon {
-/** Single constructor to finish the program. */
+	/** Single constructor to finish the program. */
 	public HangmanLexicon() {
-		
+
 		try {
-			rd = new BufferedReader(new FileReader("ShorterLexicon.txt"));			
+			rd = new BufferedReader(new FileReader("HangmanLexicon.txt"));			
 		}
 		catch(IOException ex) {
 			throw new ErrorException(ex);//println("File not found!");
 		}
-		
+
 		try {
 			while(true) {
 				tempWord = rd.readLine();
@@ -33,17 +32,17 @@ public class HangmanLexicon {
 			throw new ErrorException(ex);
 		}
 	}
-	
-/** Returns the number of words in the lexicon. */
+
+	/** Returns the number of words in the lexicon. */
 	public int getWordCount() {
 		return words.size();
 	}
 
-/** Returns the word at the specified index. */
+	/** Returns the word at the specified index. */
 	public String getWord(int index) {
 		return words.get(index);
 	}
-	
+
 	private int numWords = 0;
 	private BufferedReader rd;
 	private String tempWord;

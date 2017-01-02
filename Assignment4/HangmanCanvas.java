@@ -8,7 +8,7 @@ import acm.graphics.*;
 
 public class HangmanCanvas extends GCanvas {
 
-/** Resets the display so that only the scaffold appears */
+	/** Resets the display so that only the scaffold appears */
 	public void reset() {
 		/* You fill this in */
 		numParts = 0;
@@ -23,34 +23,34 @@ public class HangmanCanvas extends GCanvas {
 		add(label);
 		add(badLabel);
 		badLabel.setLabel(String.valueOf(badGuesses));
-				
+
 		return;
 	}
 
-/**
- * Updates the word on the screen to correspond to the current
- * state of the game.  The argument string shows what letters have
- * been guessed so far; unguessed letters are indicated by hyphens.
- */
+	/**
+	 * Updates the word on the screen to correspond to the current
+	 * state of the game.  The argument string shows what letters have
+	 * been guessed so far; unguessed letters are indicated by hyphens.
+	 */
 	public void displayWord(String word) {
 		label.setLabel(word);
-		
+
 		return;
 	}
 
-/**
- * Updates the display to correspond to an incorrect guess by the
- * user.  Calling this method causes the next body part to appear
- * on the scaffold and adds the letter to the list of incorrect
- * guesses that appears at the bottom of the window.
- */
+	/**
+	 * Updates the display to correspond to an incorrect guess by the
+	 * user.  Calling this method causes the next body part to appear
+	 * on the scaffold and adds the letter to the list of incorrect
+	 * guesses that appears at the bottom of the window.
+	 */
 	public void noteIncorrectGuess(char letter) {
-		
+
 		addBodyPart(numParts);
 		badGuesses[numParts] = letter;
 		badLabel.setLabel(String.valueOf(badGuesses));
 		numParts++;
-		
+
 		return;
 	}
 
@@ -58,112 +58,112 @@ public class HangmanCanvas extends GCanvas {
 		vertBeam = new GLine(xCoord, yCoord, xCoord, yCoord + SCAFFOLD_HEIGHT);
 		horzBeam = new GLine(xCoord, yCoord, xCoord + BEAM_LENGTH, yCoord);
 		rope = new GLine(xCoord + BEAM_LENGTH, yCoord, xCoord + BEAM_LENGTH, yCoord + ROPE_LENGTH);
-		
+
 		add(vertBeam);
 		add(horzBeam);
 		add(rope);
-		
+
 		return;
 	}
-	
+
 	private void addHead() {
 		GOval head = new GOval(xCoord + BEAM_LENGTH - HEAD_RADIUS / 2, 
 				yCoord + ROPE_LENGTH, HEAD_RADIUS, HEAD_RADIUS);
 		add(head);
-		
+
 		return;
 	}
-	
+
 	private void addBody() {
 		GLine body = new GLine(xCoord + BEAM_LENGTH, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS, 
 				xCoord + BEAM_LENGTH, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
 		add(body);
-		
+
 		return;
 	}
-	
+
 	private void addArms() {
 		GLine arms = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
 				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD);
 		add(arms);
-		
+
 		return;
 	}
-	
+
 	private void addHands() {
 		GLine rHand;
 		GLine lHand;
-		
+
 		rHand = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
 				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
-		
+
 		lHand = new GLine(xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
 				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
-		
+
 		add(rHand);
 		add(lHand);
-				
+
 		return;
 	}
-	
+
 	private void addHips() {
 		GLine hips = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
 		add(hips);
-		
+
 		return;
 	}
-	
+
 	private void addRleg() {
 		GLine rLeg = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
 		add(rLeg);
-		
+
 		return;
 	}
-	
+
 	private void addLleg() {
 		GLine lLeg = new GLine(xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
 		add(lLeg);
-		
+
 		return;
 	}
-	
+
 	private void addFeet() {
 		GLine rFoot;
 		GLine lFoot;
-		
+
 		rFoot = new GLine(xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH,
 				xCoord + BEAM_LENGTH - HIP_WIDTH / 2 - FOOT_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
-		
+
 		lFoot = new GLine(xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH,
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2 + FOOT_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
-		
+
 		add(rFoot);
 		add(lFoot);
-		
+
 		return;
 	}
-	
+
 	private void addBodyPart(int i) {
 		if (i == 0) {
 			addHead();
@@ -189,11 +189,11 @@ public class HangmanCanvas extends GCanvas {
 		else {
 			addFeet();
 		}
-		
+
 		return;
 	}
-	
-/* Constants for the simple version of the picture (in pixels) */
+
+	/* Constants for the simple version of the picture (in pixels) */
 	private static final int SCAFFOLD_HEIGHT = 360;
 	private static final int BEAM_LENGTH = 144;
 	private static final int ROPE_LENGTH = 18;

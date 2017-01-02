@@ -9,12 +9,12 @@ import acm.program.*;
 import acm.util.*;
 
 public class Hangman extends ConsoleProgram {
-	
+
 	public void run() {
 
 		/* Display welcome message, and initialize new wordlist*/
 		welcomeToHangman();
-		
+
 		/* Part 1 - playing an interactive game*/
 		while(playAgain()) {
 			initializeGame();
@@ -24,7 +24,7 @@ public class Hangman extends ConsoleProgram {
 		/* Part 2 - implementing the graphics*/
 
 		/* Part 3 - reading in a new list of many words*/
-		
+
 		return;
 	}
 
@@ -44,10 +44,10 @@ public class Hangman extends ConsoleProgram {
 	private void initializeGame() {
 		//Reset the game canvas.
 		canvas.reset();
-		
+
 		//Select a random word from the lexicon.
 		secretWord = wordList.getWord((int) rgen.nextDouble(0, wordList.getWordCount()));
-		
+
 		//Create and initialize a character array of blanks that is the same length as the word.
 		guessWord = new char[secretWord.length()];
 		for (int i = 0; i<secretWord.length(); i++) {
@@ -55,14 +55,14 @@ public class Hangman extends ConsoleProgram {
 		}
 		canvas.displayWord(String.valueOf(guessWord));
 		//Test code to show what the secret word is...
-		println("The secret word is " + secretWord);
-		
+		//println("The secret word is " + secretWord);
+
 		return;
 	}
 
 	private void playGame() {
 		int i = 0;
-		
+
 		//Continue to run the game while player has guesses left.
 		while(i < numberGuesses) {
 			guessesLeft(numberGuesses - i);
@@ -72,7 +72,7 @@ public class Hangman extends ConsoleProgram {
 			if(testGuess(getNewGuess())) {
 				//Update canvas word
 				canvas.displayWord(String.valueOf(guessWord));
-				
+
 				//Check for a win.
 				String test = String.valueOf(guessWord);
 				if(test.compareTo(secretWord) == 0) {
@@ -80,7 +80,7 @@ public class Hangman extends ConsoleProgram {
 					break;
 				}
 			}
-			
+
 			//BAD GUESSES
 			else {
 				//Update display with wrong guess, and draw body part.
@@ -93,25 +93,25 @@ public class Hangman extends ConsoleProgram {
 				}
 			}
 		}
-		
+
 		return;
 	}
 
 	private void gameOver(String s) {
 		println("You " + s + "!");
 		println("The secret word was " + secretWord + "!\n");
-		
+
 		return;
 	}
 
 	private char getNewGuess() {
 		char guess = '-';
 		String line;
-		
+
 		//Get a guess from the player, and convert it to the capital version.
 		print("Enter your guess: ");
 		line = readLine();
-		
+
 		if(line.length() > 1) {
 			println("Ooops, pick only one letter!");
 		}
@@ -119,7 +119,7 @@ public class Hangman extends ConsoleProgram {
 		else if (line.length() == 0) {
 			println("Ooops, you need to give at least one letter!");
 		}
-		
+
 		else {
 			guess = convertGuess(line.charAt(0));
 			tempGuess = guess;
@@ -143,13 +143,13 @@ public class Hangman extends ConsoleProgram {
 				letterTest = true;
 			}
 		}
-		
+
 		return letterTest;
 	}
 
 	private void guessesLeft(int i) {
 		println("You have " + i + " guesses left.");
-		
+
 		return;
 	}
 
@@ -169,7 +169,7 @@ public class Hangman extends ConsoleProgram {
 		else {
 			println("Ooops! Not a valid guess :/");
 		}
-		
+
 		return g;
 	}
 
@@ -177,18 +177,20 @@ public class Hangman extends ConsoleProgram {
 	public void init() {
 		canvas = new HangmanCanvas();
 		add(canvas);
-		
+
 		return;
 	}
-	
+
 	//This is test code, and will eventually be deleted.
 	private void testLex() {
 
 		println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
+		/*
 		for(int i=0; i<wordList.getWordCount(); i++) {
 			println(wordList.getWord(i));
 		}
-		
+		*/
+
 		return;
 	}
 
