@@ -253,3 +253,26 @@ Lesson 17: Multidimensional arrays and more on array lists.
 	- Java 5.0 does the 'boxing' and 'unboxing' work for you behind the scenes, saving
 	you from having to call additional methods on objects or primitive types depending
 	on which 'way' you were going...
+
+Lesson 18: Debugging
+
+	- Four steps of software development: Design, Development, Debugging, and Deployment.
+	- Design and Development are what have been worked on so far.
+	- Lots of software companies have Designers, Engineers, Testers (Vandals), and
+	people who deploy the software.
+	- Each layer in the process from Design, Coding, Testing, and Deployment, adds a
+	factor of 10x to the cost of fixing bugs which are discovered - so it is of utmost
+	importance to design software well from the outset because it becomes so much more
+	costly to fix as software takes shape.
+	- Eclipse has some nice debugging features imbedded that allow you to insert
+	breakpoints into your code that allow you to see what the call stack of functions
+	currently being executed look like, as well as what the state of all the variables
+	in a program currently are. This examination capability/view gives important optics
+	into how a program is operating, and can give you the ability to see what values are
+	and what they might (should) be, theoretically allowing you to pick up on errors.
+	- Major errors come from bad values (variables with different state than what
+	you think they should have); come from logic errors (i.e., you programmed the
+	computer to do one thing, but thought you told it to do another and that bad logic
+	is what has introduced your bug); and finally, from bad assumptions about where
+	an error is, or what might be causing it. When 'facts' collide with 'assumptions',
+	facts win!
