@@ -276,3 +276,12 @@ Lesson 18: Debugging
 	is what has introduced your bug); and finally, from bad assumptions about where
 	an error is, or what might be causing it. When 'facts' collide with 'assumptions',
 	facts win!
+
+	Lesson 19:
+
+	- Interface: set of methods which a set of classes "share" : set of functionality
+	among a certain set of classes.
+	- Map is a structure that contains key:value pairs. These "pairs" are added to
+	the map.
+	- Enter to map? Include key+value. Get from map? Include key.
+	- 
