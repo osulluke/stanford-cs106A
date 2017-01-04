@@ -1,13 +1,22 @@
 import acm.util.*;
 import acm.io.*;
+import acm.program.*;
+import java.io.*;
 
 public class WordCount extends ConsoleProgram {
 
 	public void run() {
 
-		BufferedReader rd = new BufferedReader(new FileReader("lear.txt"));
+		try {
+			BufferedReader rd = new BufferedReader(new FileReader("lear.txt"));
 
-		while(rd.)
+			while(rd.readLine() != null) {
+				;
+			}
+		}
+		catch(IOException ex) {
+			;
+		}
 
 		return;
 	}
@@ -24,9 +33,13 @@ public class WordCount extends ConsoleProgram {
 		return numWords;
 	}
 
-	public int count
+	public int countLines() {
+
+		return 1;
+	}
 
 	public int characterCount = 0;
 	public int wordCount = 0;
 	public int lineCount = 0;
+	private BufferedReader rd;
 }
