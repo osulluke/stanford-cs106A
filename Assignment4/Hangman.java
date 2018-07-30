@@ -50,10 +50,16 @@ public class Hangman extends ConsoleProgram {
 
 		//Create and initialize a character array of blanks that is the same length as the word.
 		guessWord = new char[secretWord.length()];
+		alphabet = new char[26];
 		for (int i = 0; i<secretWord.length(); i++) {
 			guessWord[i] = '-';
 		}
+		for (int i = 0; i<alphabet.length; i++) {
+			alphabet[i] = (char) (65+i);
+		}
+		canvas.displayAlphabet(String.valueOf(alphabet));
 		canvas.displayWord(String.valueOf(guessWord));
+		
 		//Test code to show what the secret word is...
 		//println("The secret word is " + secretWord);
 
@@ -71,8 +77,10 @@ public class Hangman extends ConsoleProgram {
 			//GOOD GUESSES: Get a new guess, and test it for validity.
 			if(testGuess(getNewGuess())) {
 				//Update canvas word
+				canvas.displayAlphabet(String.valueOf(alphabet));
 				canvas.displayWord(String.valueOf(guessWord));
-
+				
+				
 				//Check for a win.
 				String test = String.valueOf(guessWord);
 				if(test.compareTo(secretWord) == 0) {
@@ -84,6 +92,8 @@ public class Hangman extends ConsoleProgram {
 			//BAD GUESSES
 			else {
 				//Update display with wrong guess, and draw body part.
+				canvas.displayAlphabet(String.valueOf(alphabet));
+				canvas.displayWord(String.valueOf(guessWord));
 				canvas.noteIncorrectGuess(tempGuess);
 				//Wrong guess, increment guess counter, and check for a loss.
 				i++;
@@ -141,6 +151,13 @@ public class Hangman extends ConsoleProgram {
 				guessWord[i] = c;
 				//Return true if it's a good guess.
 				letterTest = true;
+			}
+		}
+		
+		//Loop through the alphabet and replace selected letters with '-'.
+		for(int i = 0; i<alphabet.length; i++) {
+			if (c == alphabet[i]) {
+				alphabet[i] = '-';
 			}
 		}
 
@@ -208,6 +225,7 @@ public class Hangman extends ConsoleProgram {
 	private HangmanLexicon wordList = null;
 	private String secretWord = null;
 	private char[] guessWord;
+	private char[] alphabet;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private HangmanCanvas canvas;
 	private char tempGuess = '-';

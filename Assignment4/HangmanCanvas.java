@@ -14,15 +14,21 @@ public class HangmanCanvas extends GCanvas {
 		numParts = 0;
 		removeAll();
 		addScaffold();
+		
 		label.setFont("SansSerif-bold-24");
-		badLabel.setFont("SansSerif-bold-14");
+		badLabel.setFont("SansSerif-bold-24");
+		alphaLabel.setFont("SansSerif-bold-24");
+		
 		badGuesses = new char[8];
 		for(int i = 0; i < badGuesses.length; i++) {
 			badGuesses[i] = '-';
 		}
+		
 		add(label);
 		add(badLabel);
 		badLabel.setLabel(String.valueOf(badGuesses));
+		add(alphaLabel);
+		
 
 		return;
 	}
@@ -35,6 +41,12 @@ public class HangmanCanvas extends GCanvas {
 	public void displayWord(String word) {
 		label.setLabel(word);
 
+		return;
+	}
+	
+	public void displayAlphabet(String word) {
+		alphaLabel.setLabel(word);
+		
 		return;
 	}
 
@@ -216,6 +228,7 @@ public class HangmanCanvas extends GCanvas {
 	private static int xLabel = xCoord;
 	private static int yLabel = yCoord + SCAFFOLD_HEIGHT + 20;
 	private static GLabel label = new GLabel("", xLabel, yLabel);
-	private static GLabel badLabel = new GLabel("", xLabel, yLabel + label.getHeight() + 20);
+	private static GLabel badLabel = new GLabel("", xLabel, yLabel + label.getHeight() + 50);
+	private static GLabel alphaLabel = new GLabel("", xLabel, yLabel + label.getHeight() + badLabel.getHeight() + 80);
 	private static char[] badGuesses;
 }
