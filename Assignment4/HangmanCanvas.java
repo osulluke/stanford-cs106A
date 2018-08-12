@@ -12,24 +12,34 @@ public class HangmanCanvas extends GCanvas {
 	public void reset() {
 		/* You fill this in */
 		numParts = 0;
+		badGuesses = new char[8];
 		removeAll();
 		addScaffold();
+		resetGuesses();
+		addLabels();
 		
-		label.setFont("SansSerif-bold-24");
-		badLabel.setFont("SansSerif-bold-24");
-		alphaLabel.setFont("SansSerif-bold-24");
-		
-		badGuesses = new char[8];
+		return;
+	}
+	
+	public void resetGuesses() {
 		for(int i = 0; i < badGuesses.length; i++) {
 			badGuesses[i] = '-';
 		}
+	}
+	
+	public void addLabels() {
+		String f = "SansSerif-bold-16";
+		String s = "SansSerif-bold-24";
+		
+		label.setFont(s);
+		badLabel.setFont(s);
+		alphaLabel.setFont(f);
 		
 		add(label);
 		add(badLabel);
 		badLabel.setLabel(String.valueOf(badGuesses));
 		add(alphaLabel);
 		
-
 		return;
 	}
 
@@ -227,8 +237,12 @@ public class HangmanCanvas extends GCanvas {
 	private static int numParts = 0;
 	private static int xLabel = xCoord;
 	private static int yLabel = yCoord + SCAFFOLD_HEIGHT + 20;
+	
+	/*Make labels for the game*/
 	private static GLabel label = new GLabel("", xLabel, yLabel);
 	private static GLabel badLabel = new GLabel("", xLabel, yLabel + label.getHeight() + 50);
 	private static GLabel alphaLabel = new GLabel("", xLabel, yLabel + label.getHeight() + badLabel.getHeight() + 80);
+	
+	/*Make an array to track the incorrect guesses*/
 	private static char[] badGuesses;
 }
