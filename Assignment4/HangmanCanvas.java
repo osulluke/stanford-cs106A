@@ -13,10 +13,10 @@ public class HangmanCanvas extends GCanvas {
 		/* You fill this in */
 		numParts = 0;
 		badGuesses = new char[8];
-		removeAll();
-		addScaffold();
-		resetGuesses();
-		addLabels();
+		this.removeAll();
+		this.addScaffold();
+		this.resetGuesses();
+		this.addLabels();
 		
 		return;
 	}
@@ -35,10 +35,10 @@ public class HangmanCanvas extends GCanvas {
 		badLabel.setFont(s);
 		alphaLabel.setFont(f);
 		
-		add(label);
-		add(badLabel);
+		this.add(label);
+		this.add(badLabel);
 		badLabel.setLabel(String.valueOf(badGuesses));
-		add(alphaLabel);
+		this.add(alphaLabel);
 		
 		return;
 	}
@@ -68,7 +68,7 @@ public class HangmanCanvas extends GCanvas {
 	 */
 	public void noteIncorrectGuess(char letter) {
 
-		addBodyPart(numParts);
+		this.addBodyPart(numParts);
 		badGuesses[numParts] = letter;
 		badLabel.setLabel(String.valueOf(badGuesses));
 		numParts++;
@@ -81,9 +81,9 @@ public class HangmanCanvas extends GCanvas {
 		horzBeam = new GLine(xCoord, yCoord, xCoord + BEAM_LENGTH, yCoord);
 		rope = new GLine(xCoord + BEAM_LENGTH, yCoord, xCoord + BEAM_LENGTH, yCoord + ROPE_LENGTH);
 
-		add(vertBeam);
-		add(horzBeam);
-		add(rope);
+		this.add(vertBeam);
+		this.add(horzBeam);
+		this.add(rope);
 
 		return;
 	}
@@ -91,7 +91,7 @@ public class HangmanCanvas extends GCanvas {
 	private void addHead() {
 		GOval head = new GOval(xCoord + BEAM_LENGTH - HEAD_RADIUS / 2, 
 				yCoord + ROPE_LENGTH, HEAD_RADIUS, HEAD_RADIUS);
-		add(head);
+		this.add(head);
 
 		return;
 	}
@@ -101,7 +101,7 @@ public class HangmanCanvas extends GCanvas {
 				yCoord + ROPE_LENGTH + HEAD_RADIUS, 
 				xCoord + BEAM_LENGTH, 
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
-		add(body);
+		this.add(body);
 
 		return;
 	}
@@ -111,7 +111,7 @@ public class HangmanCanvas extends GCanvas {
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD,
 				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD);
-		add(arms);
+		this.add(arms);
 
 		return;
 	}
@@ -130,8 +130,8 @@ public class HangmanCanvas extends GCanvas {
 				xCoord + BEAM_LENGTH - UPPER_ARM_LENGTH / 2 + UPPER_ARM_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
 
-		add(rHand);
-		add(lHand);
+		this.add(rHand);
+		this.add(lHand);
 
 		return;
 	}
@@ -141,7 +141,7 @@ public class HangmanCanvas extends GCanvas {
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH);
-		add(hips);
+		this.add(hips);
 
 		return;
 	}
@@ -151,7 +151,7 @@ public class HangmanCanvas extends GCanvas {
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH - HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
-		add(rLeg);
+		this.add(rLeg);
 
 		return;
 	}
@@ -161,7 +161,7 @@ public class HangmanCanvas extends GCanvas {
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH,
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
-		add(lLeg);
+		this.add(lLeg);
 
 		return;
 	}
@@ -180,36 +180,23 @@ public class HangmanCanvas extends GCanvas {
 				xCoord + BEAM_LENGTH + HIP_WIDTH / 2 + FOOT_LENGTH,
 				yCoord + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
 
-		add(rFoot);
-		add(lFoot);
+		this.add(rFoot);
+		this.add(lFoot);
 
 		return;
 	}
 
 	private void addBodyPart(int i) {
-		if (i == 0) {
-			addHead();
-		}
-		else if (i == 1) {
-			addBody();
-		}
-		else if (i == 2) {
-			addArms();
-		}
-		else if (i == 3) {
-			addHands();
-		}
-		else if (i == 4) {
-			addHips();
-		}
-		else if (i == 5) {
-			addRleg();
-		}
-		else if (i == 6) {
-			addLleg();
-		}
-		else {
-			addFeet();
+		
+		switch(i) {
+			case 0: this.addHead(); break;
+			case 1: this.addBody(); break;
+			case 2: this.addArms(); break;
+			case 3: this.addHands(); break;
+			case 4: this.addHips(); break;
+			case 5: this.addRleg(); break;
+			case 6: this.addLleg(); break;
+			default: this.addFeet(); break;
 		}
 
 		return;
