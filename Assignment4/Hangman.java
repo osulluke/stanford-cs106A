@@ -15,16 +15,14 @@ public class Hangman extends ConsoleProgram {
 		/* Display welcome message, and initialize new wordlist*/
 		welcomeToHangman();
 
-		/* Part 1 - playing an interactive game*/
-		while(playAgain()) {
+		/* Playing an interactive game*/
+		do {
 			initializeGame();
 			playGame();
-		}
-
-		/* Part 2 - implementing the graphics*/
-
-		/* Part 3 - reading in a new list of many words*/
-
+		} while(playAgain());
+		
+		canvas.displayAlphabet("Thanks for Playing!!! Bye Bye!");
+		
 		return;
 	}
 
@@ -35,10 +33,24 @@ public class Hangman extends ConsoleProgram {
 		//Create new lexicon from other class.
 		wordList = new HangmanLexicon();
 
-		//Test code that makes sure the other class is working.
-		testLex();
-
 		return;
+	}
+	
+	//This whole function is test code...should be replaced with a user choice.
+	private boolean playAgain() {
+		this.print("Would you like to play again? Enter 'N' or 'n' to quit: ");
+		String playAgain = this.readLine();
+		
+		if (playAgain.length() != 1) {
+			return true;
+		}
+		if (playAgain.charAt(0) == 'N' || playAgain.charAt(0) == 'n') {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
 	}
 
 	private void initializeGame() {
@@ -59,9 +71,6 @@ public class Hangman extends ConsoleProgram {
 		}
 		canvas.displayAlphabet(String.valueOf(alphabet));
 		canvas.displayWord(String.valueOf(guessWord));
-		
-		//Test code to show what the secret word is...
-		//println("The secret word is " + secretWord);
 
 		return;
 	}
@@ -170,11 +179,6 @@ public class Hangman extends ConsoleProgram {
 		return;
 	}
 
-	//This whole function is test code...should be replaced with a user choice.
-	private boolean playAgain() {
-		return rgen.nextBoolean(.93);
-	}
-
 	//This code will convert a lowercase or uppercase letter to uppercase.
 	private char convertGuess(char g) {
 		if(g >= 'A' && g <= 'Z' || g == '-') {
@@ -193,20 +197,7 @@ public class Hangman extends ConsoleProgram {
 	//This code initializes the hangman canvas.
 	public void init() {
 		canvas = new HangmanCanvas();
-		add(canvas);
-
-		return;
-	}
-
-	//This is test code, and will eventually be deleted.
-	private void testLex() {
-
-		println("There are " + wordList.getWordCount() + " words in the list, and are as follows: ");
-		/*
-		for(int i=0; i<wordList.getWordCount(); i++) {
-			println(wordList.getWord(i));
-		}
-		*/
+		this.add(canvas);
 
 		return;
 	}
@@ -220,7 +211,7 @@ public class Hangman extends ConsoleProgram {
     - rgen: a random generator.
     - canvas: the graphical hangman display canvas.
 	 */
-	//private static String[] wordList = new String[10];
+	
 	private int numberGuesses = 8;
 	private HangmanLexicon wordList = null;
 	private String secretWord = null;
