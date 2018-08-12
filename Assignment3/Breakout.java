@@ -64,29 +64,30 @@ public class Breakout extends GraphicsProgram {
 /** Runs the Breakout program. */
 	public void run() {
 		/* Add the mouse listeners for the paddle to move*/
-		addMouseListeners();
+		this.addMouseListeners();
 		
-		/* Add all the rows of bricks to the world.*/
-		setUpBricks();
-
-		/*
-		 * Make the paddle and then apply the fixPaddle()
+		/* Add all the rows of bricks to the world. Make the paddle and then apply the fixPaddle()
 		 * function to fill it in and add it to the middle
-		 * of the board. */
+		 * of the board.
+		 * */
+		this.setUpBricks();
 		paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
 		fixPaddle(paddle);
 
-		/* Begin gameplay; you have three lives/turns, after
-		 * which, gameplay ends. */
+		/* Begin game play; you have three lives/turns, after
+		 * which, game play ends. 
+		 * */
 		for (int lives = 0; lives < NTURNS; lives++) {
 			ball = makeBall();
-			add(ball);
-			play();
-			if(numHits == youWon) {break;}
+			this.add(ball);
+			this.play();
+			if(numHits == youWon) {
+				break;
+			}
 		}
 
 		/* After your three lives/turns, it's game over. */
-		gameOver();
+		this.gameOver();
 
 		return;
 	}
@@ -140,7 +141,7 @@ public class Breakout extends GraphicsProgram {
 		p.setFilled(true);
 
 		/* Add paddle to game board. */
-		add(p, WIDTH / 2, HEIGHT - PADDLE_Y_OFFSET);
+		this.add(p, WIDTH / 2, HEIGHT - PADDLE_Y_OFFSET);
 
 		return;
 	}
@@ -179,7 +180,7 @@ public class Breakout extends GraphicsProgram {
 
 	private void play() {
 		/* Don't start the game until there is a click from the user.*/
-		waitForClick();
+		this.waitForClick();
 
 		/* Initialize a new, random x velocity and send the ball downward. */
 		vx = rgen.nextDouble(2.0, 7.0);
@@ -194,7 +195,7 @@ public class Breakout extends GraphicsProgram {
 		 * collision that returns 'true' continue to move the ball. */
 		while(!checkCollision()) {
 			ball.move(vx, vy);
-			pause(25);
+			this.pause(25);
 			
 			/**/
 			if(numHits == youWon) {break;}
@@ -202,8 +203,8 @@ public class Breakout extends GraphicsProgram {
 		
 		/* After a collision that returns true, remove pause momentarily, 
 		 * and then remove the ball. */
-		pause(1000);
-		removeBall(ball);
+		this.pause(1000);
+		this.removeBall(ball);
 		
 		return;
 	}
@@ -227,20 +228,20 @@ public class Breakout extends GraphicsProgram {
 		 * this will need to return true to signify the
 		 * end of a turn. */
 		if (ball.getY() + BALL_RADIUS >= HEIGHT) {
-			vy = -vy;
+			vy = -vy * 1.05;
 			hit = true;
 			return hit;
 		}
 		
 		/* Check if ball hits top of wall. */
 		if (ball.getY() <= 0) {
-			vy = -vy;
+			vy = -vy * 1.05;
 			return hit;
 		}
 		
 		/* Check if ball hits left edge. */
 		if (ball.getX() <= 0) {
-			vx = -vx;
+			vx = -vx * 1.1;
 			return hit;
 		}
 		
@@ -273,8 +274,8 @@ public class Breakout extends GraphicsProgram {
 		 * some unknown reason. */
 		if (withinX && withinY) {
 			vy = -vy;
-			vx = rgen.nextDouble(0.0, vy);
-			bounceNoise.play();
+			vx = rgen.nextDouble(-vy, vy);
+			//bounceNoise.play();
 			withinX = false;
 			withinY = false;
 			return false;
