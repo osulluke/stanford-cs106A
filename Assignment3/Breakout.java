@@ -200,8 +200,12 @@ public class Breakout extends GraphicsProgram {
 		while(!checkCollision()) {
 			/* Code to ensure ball won't fly through paddle
 			 */
-			if (ball.getY() + ball.getHeight() + vy > PADDLE_BOTTOM || ball.getY() + vy > PADDLE_TOP) {
-				checkPaddleCollision();
+			boolean skipsPaddle = false;
+			skipsPaddle = ball.getY() + ball.getHeight() + vy > PADDLE_BOTTOM && ball.getY() + vy > PADDLE_TOP;
+			if (skipsPaddle && this.checkPaddleX(ball)) {
+				vy = -vy;
+				ball.move(vx, vy);
+				skipsPaddle = false;
 			}
 			ball.move(vx, vy);
 			this.pause(60);
@@ -304,23 +308,9 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private boolean checkPaddleCollision() {
-		/*/* Get the boundaries of the ball. 
-		double ballLeft = ball.getX();
-		double ballRight = ballLeft + ball.getWidth();
-		double ballBottom = ball.getY();
-		double ballTop = ballBottom + ball.getHeight();
-		
-		/* Get the left and right boundaries of the paddle. 
-		double padLeft = paddle.getX();
-		double padRight = padLeft + PADDLE_WIDTH;
-		
-		/* Create two logical testers to see if any part of the ball is 
-		 * touching any part of the paddle. */
-		//boolean withinX = (ballRight >= padLeft && ballLeft <= padRight);
-		//boolean withinY = (ballBottom <= HEIGHT - PADDLE_Y_OFFSET && ballBottom >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT || ballTop <= HEIGHT - PADDLE_Y_OFFSET && ballTop >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
-		
 		boolean withinX = this.checkPaddleX(ball);
 		boolean withinY = this.checkPaddleY(ball);
+		 
 		/* If the ball is touching the paddle in both the X and Y dimension
 		 * then reverse it's y velocity and give it a new random x velocity. 
 		 * Here is also where the noise is supposed to play, but it's not for 
