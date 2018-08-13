@@ -64,6 +64,9 @@ public class Breakout extends GraphicsProgram {
 
 /** Initial Y velocity (+ is downward) */
 	private static final double Y_VEL = 5.0;
+	
+/** Constant that controls how much 'ENERGY' is lost by the ball */
+	private static final double E_LOSS = .90;
 
 /** Runs the Breakout program. */
 	public void run() {
@@ -76,7 +79,7 @@ public class Breakout extends GraphicsProgram {
 		 * */
 		this.setUpBricks();
 		paddle = new GRect(PADDLE_WIDTH, PADDLE_HEIGHT);
-		fixPaddle(paddle);
+		this.fixPaddle(paddle);
 
 		/* Begin game play; you have three lives/turns, after
 		 * which, game play ends. 
@@ -208,10 +211,10 @@ public class Breakout extends GraphicsProgram {
 				skipsPaddle = false;
 			}
 			ball.move(vx, vy);
-			this.pause(60);
+			this.pause(30);
 			/* Add in the effect of gravity
 			 */
-			vy += 1;
+			vy += .2;
 			
 			/**/
 			if(numHits == youWon) {break;}
@@ -244,26 +247,28 @@ public class Breakout extends GraphicsProgram {
 		 * this will need to return true to signify the
 		 * end of a turn. */
 		if (ball.getY() + BALL_RADIUS >= HEIGHT) {
-			vy = -vy * 1.05;
-			hit = true;
+			hit = true; //Signal that the ball goes through the bottom and player loses a turn.
 			return hit;
 		}
 		
 		/* Check if ball hits top of wall. */
 		if (ball.getY() <= 0) {
-			vy = -vy * 1.05;
+			vy = -vy * E_LOSS;
+			ball.move(vx, vy + ball.getHeight() / 2);
 			return hit;
 		}
 		
 		/* Check if ball hits left edge. */
 		if (ball.getX() <= 0) {
-			vx = -vx * 1.1;
+			vx = -vx * E_LOSS;
+			ball.move(vx + ball.getWidth() / 2, vy);
 			return hit;
 		}
 		
 		/* Check if ball hits right edge. */
 		if (ball.getX() + BALL_RADIUS >= WIDTH) {
-			vx = -vx * 1.1;
+			vx = -vx * E_LOSS;
+			ball.move(vx - ball.getWidth() / 2, vy);
 			return hit;
 		}
 		
@@ -343,12 +348,12 @@ public class Breakout extends GraphicsProgram {
 			GRect fullBrick = (GRect) crasher;
 			if ( fullBrick.isFilled() ) {
 				fullBrick.setFilled(false);
-				vx = rgen.nextDouble(0.0, vy);
+				vx = rgen.nextDouble(0.1, E_LOSS * vy);
 				vy = -vy;
 			}
 			else if( !fullBrick.isFilled() ) {
 				remove(crasher);
-				vx = rgen.nextDouble(0.0, vy);
+				vx = rgen.nextDouble(0.1, E_LOSS * vy);
 				vy = -vy;
 				
 				/* Increment the 'winner' tracker. */
