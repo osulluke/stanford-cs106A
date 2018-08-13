@@ -31,6 +31,10 @@ public class Breakout extends GraphicsProgram {
 
 /** Offset of the paddle up from the bottom */
 	private static final int PADDLE_Y_OFFSET = 30;
+	
+/** Paddle Dimensions */
+	private static final int PADDLE_TOP = HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT;
+	private static final int PADDLE_BOTTOM = HEIGHT - PADDLE_Y_OFFSET;
 
 /** Number of bricks per row */
 	private static final int NBRICKS_PER_ROW = 10;
@@ -183,7 +187,7 @@ public class Breakout extends GraphicsProgram {
 		this.waitForClick();
 
 		/* Initialize a new, random x velocity and send the ball downward. */
-		vx = rgen.nextDouble(2.0, 7.0);
+		vx = rgen.nextDouble(2.0, 4.0);
 		vy = Y_VEL;
 		
 		/* Every time the ball starts, make it go left or right 50/50. */
@@ -194,8 +198,16 @@ public class Breakout extends GraphicsProgram {
 		/* Start the ball moving and check for collisions. If there is no 
 		 * collision that returns 'true' continue to move the ball. */
 		while(!checkCollision()) {
+			/* Code to ensure ball won't fly through paddle
+			 */
+			if (ball.getY() + ball.getHeight() + vy > PADDLE_BOTTOM || ball.getY() + vy > PADDLE_TOP) {
+				checkPaddleCollision();
+			}
 			ball.move(vx, vy);
-			this.pause(25);
+			this.pause(60);
+			/* Add in the effect of gravity
+			 */
+			vy += 1;
 			
 			/**/
 			if(numHits == youWon) {break;}
@@ -254,20 +266,61 @@ public class Breakout extends GraphicsProgram {
 		return hit;
 	}
 
-	private boolean checkPaddleCollision() {
+	private boolean checkPaddleX(GOval b) {
+		b = ball;
+		boolean withinX;
+		
 		/* Get the boundaries of the ball. */
-		double ballX = ball.getX();
-		double ballY = ball.getY();
+		double ballLeft = b.getX();
+		double ballRight = ballLeft + b.getWidth();
+		//double ballBottom = b.getY();
+		//double ballTop = ballBottom + b.getHeight();
 		
 		/* Get the left and right boundaries of the paddle. */
 		double padLeft = paddle.getX();
 		double padRight = padLeft + PADDLE_WIDTH;
 		
+		withinX = (ballRight >= padLeft && ballLeft <= padRight);
+		
+		return withinX;
+	}
+	
+	private boolean checkPaddleY(GOval b) {
+		b = ball;
+		boolean withinY;
+		/* Get the boundaries of the ball. */
+		//double ballLeft = ball.getX();
+		//double ballRight = ballLeft + ball.getWidth();
+		double ballBottom = ball.getY();
+		double ballTop = ballBottom + ball.getHeight();
+		
+		/* Get the left and right boundaries of the paddle. */
+		//double padLeft = paddle.getX();
+		//double padRight = padLeft + PADDLE_WIDTH;
+		
+		withinY = (ballBottom <= HEIGHT - PADDLE_Y_OFFSET && ballBottom >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT || ballTop <= HEIGHT - PADDLE_Y_OFFSET && ballTop >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+		
+		return withinY;
+	}
+	
+	private boolean checkPaddleCollision() {
+		/*/* Get the boundaries of the ball. 
+		double ballLeft = ball.getX();
+		double ballRight = ballLeft + ball.getWidth();
+		double ballBottom = ball.getY();
+		double ballTop = ballBottom + ball.getHeight();
+		
+		/* Get the left and right boundaries of the paddle. 
+		double padLeft = paddle.getX();
+		double padRight = padLeft + PADDLE_WIDTH;
+		
 		/* Create two logical testers to see if any part of the ball is 
 		 * touching any part of the paddle. */
-		boolean withinX = (ballX >= padLeft && ballX <= padRight);
-		boolean withinY = (ballY <= HEIGHT - PADDLE_Y_OFFSET && ballY >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
-
+		//boolean withinX = (ballRight >= padLeft && ballLeft <= padRight);
+		//boolean withinY = (ballBottom <= HEIGHT - PADDLE_Y_OFFSET && ballBottom >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT || ballTop <= HEIGHT - PADDLE_Y_OFFSET && ballTop >= HEIGHT - PADDLE_Y_OFFSET - PADDLE_HEIGHT);
+		
+		boolean withinX = this.checkPaddleX(ball);
+		boolean withinY = this.checkPaddleY(ball);
 		/* If the ball is touching the paddle in both the X and Y dimension
 		 * then reverse it's y velocity and give it a new random x velocity. 
 		 * Here is also where the noise is supposed to play, but it's not for 
